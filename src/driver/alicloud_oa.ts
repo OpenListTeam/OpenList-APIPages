@@ -62,6 +62,7 @@ export async function alyLogin(c: Context) {
     const result = await pubLogin(c, JSON.stringify(params_info), request_urls,
         false, "POST", "json",
         {'Content-Type': 'application/json'});
+    if(!result.qrCodeUrl) return c.json({"text": result.message}, 500);
     return c.json({"text": result.qrCodeUrl, "sid": result.sid}, 200);
 }
 
