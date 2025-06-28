@@ -1,23 +1,22 @@
 {
   "name": "cf-worker-api",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify",
-    "build-alifc": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/alifc.ts",
-    "deploy-alifc": "s deploy -y",
-    "build-eoapp": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/eoapp.ts",
-    "deploy-eoapp": "s deploy -y",
+    "dev-cf": "wrangler dev",
+    "deploy-cf": "wrangler deploy --minify",
+    "dev-eo": "edgeone pages dev",
+    "deploy-eo": "rm -rf ./node_modules && edgeone pages deploy ./ -n edgeone-hono-app -t ",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20250610.0",
+    "@edgeone/ef-types": "^1.0.5",
     "@google-cloud/local-auth": "^2.1.0",
+    "edgeone": "^1.0.21",
     "googleapis": "^105.0.0",
     "hono": "^4.8.2",
     "hono-alibaba-cloud-fc3-adapter": "^1.0.2",
-    "hono-edgeone-pages-adapter": "^0.0.3",
     "http-server": "^14.1.1",
-    "sweetalert2": "^11.22.0"
+    "sweetalert2": "^11.6.13"
   },
   "devDependencies": {
     "@serverless-devs/s": "^3.1.10",

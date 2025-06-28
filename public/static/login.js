@@ -123,7 +123,7 @@ async function getLogin(refresh = false) {
                 return;
             }
             // Ali网盘直接获取 ===========================================================
-            if (driver_txt === "alicloud_qr") {
+            if (driver_txt === "alicloud_qr" || driver_txt === "alicloud_tv") {
                 let sid = response_data.sid;
                 await Swal.fire({
                     position: 'top',
@@ -165,14 +165,14 @@ async function getLogin(refresh = false) {
         } else await Swal.fire({
             icon: 'error',
             title: "获取秘钥失败",
-            text:  response_data.text,
+            text: response_data.text,
             showConfirmButton: true,
         });
     } catch (error) {
         await Swal.fire({
             icon: 'error',
             title: '获取秘钥失败',
-            text:  error,
+            text: error,
             showConfirmButton: true,
         });
     }

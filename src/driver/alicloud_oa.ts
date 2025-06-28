@@ -7,9 +7,9 @@ import {pubLogin} from "../shares/oauthv2";
 import {encodeCallbackData, Secrets} from "../shares/secrets";
 
 const driver_map = [
-    'https://openapi.aliyundrive.com/oauth/authorize',
-    'https://openapi.aliyundrive.com/oauth/access_token',
-    'https://openapi.aliyundrive.com/oauth/qrcode',
+    'https://openapi.aliyundrive.com/oauth/authorize', // 客户端扫码和页面登录
+    'https://openapi.aliyundrive.com/oauth/access_token', // 客户端Token获取页
+    "https://api.extscreen.com/aliyundrive/v2/qrcode", // TV版本专用的扫码接口
 ]
 
 interface AliAccessTokenReq {
@@ -39,18 +39,24 @@ export async function alyLogin(c: Context) {
     const client_secret = clients.servers ? c.env.alicloud_key : clients.servers
     let request_urls: string = driver_map[0]
     // 通用参数 =========================================================================
-    const params_info: Record<string, any> = {
+    let params_info: Record<string, any> = {
         client_id: clients.servers ? c.env.alicloud_uid : clients.app_uid,
+        scopes: ['user:base', 'file:all:read', 'file:all:write']
     }
     // QR扫码需要增加的参数 =============================================================
-    if (clients.drivers == "alicloud_go") {
+    if (clients.drivers == "alicloud_tv") {
+        request_urls = driver_map[2]
+        params_info.client_id = undefined
+        params_info.params_info = {
+            "iv": "iv",
+            "ciphertext": "ciphertext"
+        }
+    } else if (clients.drivers == "alicloud_go") {
         params_info.redirect_uri = 'https://' + c.env.MAIN_URLS + '/alicloud/callback'
         params_info.response_type = 'code'
-        params_info.scope = ['user:base', 'file:all:read', 'file:all:write']
     } else {
         request_urls += "/qrcode"
         params_info.client_secret = client_secret
-        params_info.scopes = ['user:base', 'file:all:read', 'file:all:write']
     }
     //需要保存数据到浏览器本地 ==========================================================
     setCookie(c, clients)
@@ -62,7 +68,8 @@ export async function alyLogin(c: Context) {
     const result = await pubLogin(c, JSON.stringify(params_info), request_urls,
         false, "POST", "json",
         {'Content-Type': 'application/json'});
-    if(!result.qrCodeUrl) return c.json({"text": result.message}, 500);
+    console.log(result);
+    if (!result.qrCodeUrl) return c.json({"text": result.message}, 500);
     return c.json({"text": result.qrCodeUrl, "sid": result.sid}, 200);
 }
 
@@ -75,7 +82,7 @@ export async function alyToken(c: Context) {
     if (!clients_info.drivers) return c.json({text: 'No Cookies',}, 401);
     if (!oauth_type) oauth_type = "authorization_code";
     const req: AliAccessTokenReq = {
-        client_id: clients_info.servers  ? c.env.alicloud_uid : <string>c.req.query('client_id') || clients_info.app_uid,
+        client_id: clients_info.servers ? c.env.alicloud_uid : <string>c.req.query('client_id') || clients_info.app_uid,
         client_secret: clients_info.servers ? c.env.alicloud_key : <string>c.req.query('client_secret') || clients_info.app_key,
         grant_type: <string>oauth_type,
         code: <string>c.req.query('code'),
@@ -144,3 +151,4 @@ export async function genToken(c: Context) {
     return await refresh.pubRenew(c, driver_map[1], params, "POST",
         "access_token", "refresh_token", "message");
 }
+

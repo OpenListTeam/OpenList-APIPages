@@ -4,33 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="987ac7e2-ceaa-49a2-b5c9-aed65a7c598d" name="更改" comment="add dropbox api&#10;mod all driver's name&#10;mod oauth2 function">
-      <change afterPath="$PROJECT_DIR$/public/static/event.js" afterDir="false" />
+    <list default="true" id="987ac7e2-ceaa-49a2-b5c9-aed65a7c598d" name="更改" comment="mod(driver): modify aliyun output">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/aliv2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/aliv2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/static/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/spoid.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/spoid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/theme.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/token.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/token.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/115ui.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/driver/115cloud_oa.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/123ui.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/driver/123cloud_oa.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aliui.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/driver/alicloud_oa.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aliui2.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/driver/alicloud_qr.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/baidu.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/driver/baiduyun_oa.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/drops.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/driver/dropboxs_oa.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/error.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shares/message.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/goapi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/driver/googleui_oa.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/oneui.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/driver/onedrive_oa.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shares/callback-data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shares/secrets.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shares/refresh.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shares/refresh.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shares/urlback.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shares/urlback.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/callback-data.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/yandex.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/driver/yandexui_oa.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wrangler.jsonc.example" beforeDir="false" afterPath="$PROJECT_DIR$/wrangler.jsonc.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/driver/alicloud_oa.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/driver/alicloud_oa.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,24 +57,27 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;G:/AList/cf-worker-api&quot;,
+    &quot;last_opened_file_path&quot;: &quot;G:/Codes/OpenListTeam/OpenList-APIPages&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.3.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.language.and.region&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\pikachuren\\AppData\\Local\\Programs\\WebStorm\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\AList\cf-worker-api\src\driver" />
       <recent name="G:\AList\cf-worker-api" />
-      <recent name="G:\AList\cf-worker-api\public" />
       <recent name="G:\AList\cf-worker-api\src" />
+      <recent name="G:\AList\cf-worker-api\public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\Codes\OpenListTeam\OpenList-APIPages\functions" />
       <recent name="D:\Codes\CFWorker-api\public\static" />
       <recent name="D:\Codes\CFWorker-api\src\driver" />
       <recent name="D:\Codes\CFWorker-api\src\shares" />
@@ -106,7 +87,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-WS-243.23654.120" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-WS-251.26927.40" />
       </set>
     </attachedChunks>
   </component>
@@ -124,6 +105,10 @@
       <workItem from="1749729820615" duration="1140000" />
       <workItem from="1750212996387" duration="18410000" />
       <workItem from="1750583575965" duration="5130000" />
+      <workItem from="1750731858668" duration="12450000" />
+      <workItem from="1750753666615" duration="21205000" />
+      <workItem from="1750997980031" duration="50000" />
+      <workItem from="1750998038649" duration="5053000" />
     </task>
     <task id="LOCAL-00001" summary="fin onedrive official token">
       <option name="closed" value="true" />
@@ -277,7 +262,55 @@
       <option name="project" value="LOCAL" />
       <updated>1750577507090</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="fix aliyun driver invalid">
+      <option name="closed" value="true" />
+      <created>1750659248822</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1750659248822</updated>
+    </task>
+    <task id="LOCAL-00021" summary="add edgeone, alcloud support">
+      <option name="closed" value="true" />
+      <created>1750661246717</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1750661246717</updated>
+    </task>
+    <task id="LOCAL-00022" summary="add alcloud oauth2">
+      <option name="closed" value="true" />
+      <created>1750675600661</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1750675600661</updated>
+    </task>
+    <task id="LOCAL-00023" summary="mod readme">
+      <option name="closed" value="true" />
+      <created>1750734548274</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1750734548274</updated>
+    </task>
+    <task id="LOCAL-00024" summary="mod(readme): modify docs&#10;add(driver): quark cloud">
+      <option name="closed" value="true" />
+      <created>1750759269552</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1750759269552</updated>
+    </task>
+    <task id="LOCAL-00025" summary="mod(driver): modify aliyun output">
+      <option name="closed" value="true" />
+      <created>1750837660247</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1750837660247</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,17 +333,12 @@
     <MESSAGE value="mod driver_txt" />
     <MESSAGE value="add dropbox" />
     <MESSAGE value="add dropbox api&#10;mod all driver's name&#10;mod oauth2 function" />
-    <option name="LAST_COMMIT_MESSAGE" value="add dropbox api&#10;mod all driver's name&#10;mod oauth2 function" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/driver/onedrive_oa.ts</url>
-          <line>130</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="fix aliyun driver invalid" />
+    <MESSAGE value="add edgeone, alcloud support" />
+    <MESSAGE value="add alcloud oauth2" />
+    <MESSAGE value="mod readme" />
+    <MESSAGE value="mod(readme): modify docs&#10;add(driver): quark cloud" />
+    <MESSAGE value="mod(driver): modify aliyun output" />
+    <option name="LAST_COMMIT_MESSAGE" value="mod(driver): modify aliyun output" />
   </component>
 </project>
