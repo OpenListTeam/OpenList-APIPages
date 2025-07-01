@@ -37,12 +37,12 @@ function onSelect() {
         clientIdContainer.style.display = 'none';
         appSecretContainer.style.display = 'none';
         serverUseContainer.style.display = 'none';
-        callbackContainer.style.display = 'none';
+        //callbackContainer.style.display = 'none';
     } else {
         clientIdContainer.style.display = 'block';
         appSecretContainer.style.display = 'block';
         serverUseContainer.style.display = 'block';
-        callbackContainer.style.display = 'block';
+        //callbackContainer.style.display = 'block';
     }
     // Onedrive模式需要显示Share Point 相关参数 ===========================
     if (driver_txt_input.value.split("_")[0] === "onedrive") {
