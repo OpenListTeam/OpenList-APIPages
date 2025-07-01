@@ -24,7 +24,8 @@ function onSelect() {
     client_uid_views.hidden = false;
     secret_key_views.hidden = true;
     const driver_pre = driver_txt_input.value.split("_")[0];
-    direct_url_input.value = `https://api.oplist.org/${driver_pre}/callback`;
+    const hostname = window.location.hostname;
+    direct_url_input.value = `https://${hostname}/${driver_pre}/callback`;
 
     // 修改一些样式 ========================================================
     const clientIdContainer = client_uid_input.closest('.mb-3');
