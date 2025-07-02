@@ -7,7 +7,7 @@
     "nodejs_compat"
   ],
   "vars": {
-    "MAIN_URLS": "api.example.com",
+    "MAIN_URLS": "api.baishiyuan.cn",
     "onedrive_uid": "*****************************",
     "onedrive_key": "*****************************",
     "alicloud_uid": "*****************************",
