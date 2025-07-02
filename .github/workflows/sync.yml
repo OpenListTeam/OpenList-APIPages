@@ -1,0 +1,22 @@
+
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # 每30分钟运行一次
+  workflow_dispatch: # 允许手动触发工作流
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync Fork
+        uses: tgymnich/fork-sync@v2.0 # 使用最新的版本
+        with:
+          owner: OpenListTeam # 例如：octocat
+          repo: OpenList-APIPages # 例如：Spoon-Knife
+          token: ${{ secrets.GITHUB_TOKEN }} # 使用GitHub内置的TOKEN
+          base: main # 你的fork中的目标分支，通常是main或master
+          head: main # 上游仓库中的源分支，通常是main或master
+          merge_method: merge # 合并方式：merge, rebase, squash
+          auto_approve: true # 是否自动批准拉取请求（如果需要，需要配置一个具有足够权限的PAT）
