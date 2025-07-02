@@ -7,24 +7,26 @@
     "nodejs_compat"
   ],
   "vars": {
-    "MAIN_URLS": "api.example.com",
+    "MAIN_URLS": "api.sismvp.com",
     "onedrive_uid": "*****************************",
     "onedrive_key": "*****************************",
-    "alicloud_uid": "*****************************",
-    "alicloud_key": "*****************************",
+    "alicloud_uid": "9d00c59539f94c87a01a51a158f35433",
+    "alicloud_key": "89e57894f43b454cb42604f22a8e91ec",
     "baiduyun_uid": "*****************************",
     "baiduyun_key": "*****************************",
     "baiduyun_ext": "*****************************",
-    "cloud115_uid": "*****************************",
-    "cloud115_key": "*****************************",
+    "cloud115_uid": "100197367",
+    "cloud115_key": "1df63615c23eddc182df79a793870fa03e5589533a72c627fccd9c43761ee315",
+    "123cloud_uid": "19ed725b655145b795a0a1057922fd12",
+    "123cloud_key": "76eb3cc497384c3f99963234012fa5bc",
     "googleui_uid": "*****************************",
     "googleui_key": "*****************************",
     "yandexui_uid": "*****************************",
     "yandexui_key": "*****************************",
     "dropboxs_uid": "*****************************",
     "dropboxs_key": "*****************************",
-    "quarkpan_uid": "*****************************",
-    "quarkpan_key": "*****************************"
+    "quarkpan_uid": "93b14d40cbef4e5d91945ec93d26fe8f",
+    "quarkpan_key": "6d27122d2d7b41598a1dbb9b5f605e00"
   },
   "site": {
     "bucket": "./public"
