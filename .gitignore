@@ -10,7 +10,7 @@ yarn-error.log*
 
 .vscode/*
 .wrangler/*
-wrangler.jsonc
+wrangler.encrypt.jsonc
 .idea
 .DS_Store
 
@@ -20,3 +20,4 @@ wrangler.jsonc
 !.edgeone/project.json
 .tef_dist/*
   
+.idea

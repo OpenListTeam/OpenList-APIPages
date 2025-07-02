@@ -24,13 +24,13 @@ function onSelect() {
     client_uid_views.hidden = false;
     secret_key_views.hidden = true;
     const driver_pre = driver_txt_input.value.split("_")[0];
-    direct_url_input.value = `https://api.oplist.org/${driver_pre}/callback`;
+    direct_url_input.value = `${current_host}/${driver_pre}/callback`;
 
     // 修改一些样式 ========================================================
     const clientIdContainer = client_uid_input.closest('.mb-3');
     const appSecretContainer = client_key_input.closest('.mb-3');
     const serverUseContainer = server_use_input.closest('.mb-3');
-    const callbackContainer = driver_txt_input.closest('.mb-3');
+    const callbackContainer = direct_url_input.closest('.mb-3');
     // 阿里云盘扫码登录v2不需要客户端ID、应用机密和回调地址 ================
     if (driver_txt_input.value === "alicloud_cs") {
         // 隐藏整个字段容器

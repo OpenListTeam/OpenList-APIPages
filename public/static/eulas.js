@@ -12,3 +12,22 @@ const acceptGoogleConsent = closeGoogleConsentModal = () => {
         modal.style.display = 'none';
     }
 }
+
+async function showErrorMessage(actText = "", errText = "", errCode = 0) {
+    console.log(errText, errCode);
+    if (errCode === 429)
+        await Swal.fire({
+            position: 'top',
+            icon: 'error',
+            title: actText + '失败',
+            text: '操作过于频繁，请稍后再试',
+            showConfirmButton: true,
+        });
+    else await Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: actText + '失败',
+        text: errText,
+        showConfirmButton: true,
+    });
+}

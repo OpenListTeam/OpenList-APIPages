@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cf-worker-api",
+  "main": "src/cfapp.ts",
+  "compatibility_date": "2025-05-25",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "vars": {
+    "MAIN_URLS": "api.example.com",
+    "onedrive_uid": "*****************************",
+    "onedrive_key": "*****************************",
+    "alicloud_uid": "*****************************",
+    "alicloud_key": "*****************************",
+    "baiduyun_uid": "*****************************",
+    "baiduyun_key": "*****************************",
+    "baiduyun_ext": "*****************************",
+    "cloud115_uid": "*****************************",
+    "cloud115_key": "*****************************",
+    "googleui_uid": "*****************************",
+    "googleui_key": "*****************************",
+    "yandexui_uid": "*****************************",
+    "yandexui_key": "*****************************",
+    "dropboxs_uid": "*****************************",
+    "dropboxs_key": "*****************************",
+    "quarkpan_uid": "*****************************",
+    "quarkpan_key": "*****************************"
+  },
+  "site": {
+    "bucket": "./public"
+  }
+}

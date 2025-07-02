@@ -11,7 +11,7 @@
     "@cloudflare/workers-types": "^4.20250610.0",
     "@edgeone/ef-types": "^1.0.5",
     "@google-cloud/local-auth": "^2.1.0",
-    "edgeone": "^1.0.21",
+    "edgeone": "^1.0.27",
     "googleapis": "^105.0.0",
     "hono": "^4.8.2",
     "hono-alibaba-cloud-fc3-adapter": "^1.0.2",

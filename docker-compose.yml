@@ -1,0 +1,26 @@
+version: '3'
+services:
+  oplist-api-server:
+    image: openlistteam/openlist_api_server:latest
+    container_name: oplist-api-server
+    ports:
+      - "3000:3000"
+    environment:
+      - OPLIST_MAIN_URLS="api.example.com"
+      - OPLIST_ONEDRIVE_UID= #optional
+      - OPLIST_ONEDRIVE_KEY= #optional
+      - OPLIST_ALICLOUD_UID= #optional
+      - OPLIST_ALICLOUD_KEY= #optional
+      - OPLIST_BAIDUYUN_UID= #optional
+      - OPLIST_BAIDUYUN_KEY= #optional
+      - OPLIST_BAIDUYUN_EXT= #optional
+      - OPLIST_CLOUD115_UID= #optional
+      - OPLIST_CLOUD115_KEY= #optional
+      - OPLIST_GOOGLEUI_UID= #optional
+      - OPLIST_GOOGLEUI_KEY= #optional
+      - OPLIST_YANDEXUI_UID= #optional
+      - OPLIST_YANDEXUI_KEY= #optional
+      - OPLIST_DROPBOXS_UID= #optional
+      - OPLIST_DROPBOXS_KEY= #optional
+      - OPLIST_QUARKPAN_UID= #optional
+      - OPLIST_QUARKPAN_KEY= #optional
