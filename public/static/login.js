@@ -31,6 +31,13 @@ async function getLogin(refresh = false) {
         await startAlicloud2Login();
         return;
     }
+
+    // 阿里云盘TV版扫码登录，使用新的专用函数
+    if (driver_txt === "alicloud_tv" && !refresh) {
+        await startAliTVLogin();
+        return;
+    }
+
     // 刷新秘钥情况 =================================================
     let base_urls = "/requests?client_uid="
     if (refresh) {

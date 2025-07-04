@@ -9,6 +9,7 @@ import * as goapi from './driver/googleui_oa';
 import * as yanui from './driver/yandexui_oa';
 import * as drops from './driver/dropboxs_oa';
 import * as quark from './driver/quarkpan_oa';
+import * as alitv from './driver/alicloud_tv';
 
 export type Bindings = {
     MAIN_URLS: string, baiduyun_ext: string,
@@ -27,27 +28,22 @@ export const app = new Hono<{ Bindings: Bindings }>()
 app.get('/dropboxs/requests', async (c) => {
     return drops.getLogin(c);
 })
-
 // 令牌申请 ##############################################################################
 app.get('/dropboxs/callback', async (c) => {
     return drops.urlParse(c);
 })
-
 // 令牌刷新 ##############################################################################
 app.get('/dropboxs/renewapi', async (c: Context) => {
     return drops.apiRenew(c);
 });
-
 // 登录申请 ##############################################################################
 app.get('/onedrive/requests', async (c) => {
     return oneui.oneLogin(c);
 })
-
 // 令牌申请 ##############################################################################
 app.get('/onedrive/callback', async (c) => {
     return oneui.oneToken(c);
 })
-
 // 令牌刷新 ##############################################################################
 app.get('/onedrive/renewapi', async (c: Context) => {
     return oneui.genToken(c);
@@ -57,12 +53,10 @@ app.get('/onedrive/renewapi', async (c: Context) => {
 app.get('/alicloud/requests', async (c: Context) => {
     return aliui.alyLogin(c);
 });
-
 // 令牌申请 ##############################################################################
 app.get('/alicloud/callback', async (c: Context) => {
     return aliui.alyToken(c);
 });
-
 // 令牌刷新 ##############################################################################
 app.get('/alicloud/renewapi', async (c: Context) => {
     return aliui.genToken(c);
@@ -72,17 +66,14 @@ app.get('/alicloud/renewapi', async (c: Context) => {
 app.get('/alicloud2/generate_qr', async (c: Context) => {
     return aliqr.generateQR(c);
 });
-
 // 阿里云盘扫码2 - 检查登录状态 ##############################################################################
 app.get('/alicloud2/check_login', async (c: Context) => {
     return aliqr.checkLogin(c);
 });
-
 // 令牌刷新 ##############################################################################
 app.get('/alicloud2/renewapi', async (c: Context) => {
     return aliqr.genToken(c);
 });
-
 // 阿里云盘扫码2 - 获取用户信息 ##############################################################################
 app.get('/alicloud2/get_user_info', async (c: Context) => {
     return aliqr.getUserInfo(c);
@@ -183,5 +174,24 @@ app.get('/quarkyun/renewapi', async (c) => {
     return await quark.apiRenew(c);
 });
 
+// 阿里云盘TV版 - 获取二维码 ##############################################################################
+app.get('/alitv/qrcode', async (c: Context) => {
+    return await alitv.getQRCode(c);
+});
+
+// 阿里云盘TV版 - 检查扫码状态 ##############################################################################
+app.get('/alitv/check', async (c: Context) => {
+    return await alitv.checkStatus(c);
+});
+
+// 阿里云盘TV版 - 获取Token ##############################################################################
+app.get('/alitv/token', async (c: Context) => {
+    return await alitv.getTokenByAuthCode(c);
+});
+
+// 阿里云盘TV版 - 刷新Token ##############################################################################
+app.get('/alitv/renewapi', async (c: Context) => {
+    return await alitv.refreshToken(c);
+});
 
 export default app
