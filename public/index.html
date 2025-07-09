@@ -10,6 +10,7 @@
     <link rel="apple-touch-icon" type="image/png" href="https://jsd.oplist.org/gh/OpenListTeam/Logo@main/logo.png">
     <link href="https://jsd.oplist.org/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://jsd.oplist.org/npm/sweetalert2@11.22.0/dist/sweetalert2.all.min.js"></script>
+    <script src="https://jsd.oplist.org/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 </head>
 <body>
 <div class="toggle-theme">
@@ -102,17 +103,15 @@
         </p>
         <p id="eo-show" style="text-align:center" hidden="true">
             本工具国内CDN加速及安全防护由<a href="https://edgeone.ai/zh?from=github" target="_blank">Tencent EdgeOne</a>赞助
-            <br><img src="https://edgeone.ai/media/34fe3a45-492d-4ea4-ae5d-ea1087ca7b4b.png" style="width: 150px"/>
+            <br><img src="https://edgeone.ai/media/34fe3a45-492d-4ea4-ae5d-ea1087ca7b4b.png" style="width: 150px" />
         </p>
     </div>
 </div>
 
-
-<!-- 阿里云盘扫码v2模态框 -->
 <div id="qr-modal" class="qr-modal">
     <div class="qr-modal-content">
         <span class="close-btn" onclick="closeQRModal()">&times;</span>
-        <h4>阿里云盘扫码登录v2</h4>
+        <h4>扫码登录</h4>
         <div id="qr-code-container" class="qr-code-container" style="display: none;">
             <div id="qr-code-display"></div>
         </div>
@@ -147,10 +146,12 @@
 </div>
 
 <script src="/static/event.js"></script>
+<script src="/static/qrlogin.js"></script>
 <script src="/static/login.js"></script>
 <script src="/static/token.js"></script>
 <script src="/static/theme.js"></script>
 <script src="/static/aliv2.js"></script>
+<script src="/static/alitv.js"></script>
 <script src="/static/eulas.js"></script>
 <script src="/static/spoid.js"></script>
 <script src="/static/input.js"></script>
@@ -169,13 +170,9 @@
     const shared_uid_views = document.getElementById('sharepoint-uid-view');
     const url_hash = window.location.hash.substring(1); // 去掉地址栏上的#号
     const current_host = window.location.protocol + "//" + window.location.host;
-    if (window.location.host === "api.oplist.org.cn")
+    if(window.location.host==="api.oplist.org.cn")
         document.getElementById('eo-show').hidden = false;
     getToken();
-    // 阿里云盘扫码v2相关变量
-    let alicloud2SessionId = null;
-    let alicloud2CheckInterval = null;
-    let alicloud2StartTime = null;
     let clientFingerprint = null;
     // 点击模态框外部关闭
     window.onclick = function (event) {

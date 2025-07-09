@@ -64,7 +64,6 @@ export async function alyLogin(c: Context) {
     const result = await pubLogin(c, JSON.stringify(params_info), request_urls,
         false, "POST", "json",
         {'Content-Type': 'application/json'});
-    console.log(result);
     if (!result.qrCodeUrl) return c.json({"text": result.message}, 500);
     return c.json({"text": result.qrCodeUrl, "sid": result.sid}, 200);
 }
@@ -73,7 +72,6 @@ export async function alyLogin(c: Context) {
 // 令牌申请 ##############################################################################
 export async function alyToken(c: Context) {
     const clients_info: configs.Clients = getCookie(c);
-    if (clients_info.drivers == "alicloud_tv") return await checkStatus(c, clients_info);
     let oauth_type: string | undefined = c.req.query('grant_type')
     if (!clients_info.servers) clients_info.servers = c.req.query('server_use') == "true"
     if (!clients_info.drivers) return c.json({text: 'No Cookies',}, 401);
@@ -138,7 +136,6 @@ export async function genToken(c: Context) {
     const refresh_text: string | undefined = c.req.query('refresh_ui');
     if (!clients_info) return c.json({text: "传入参数缺少"}, 500);
     if (!refresh_text) return c.json({text: "缺少刷新令牌"}, 500);
-    if (clients_info.drivers == "alicloud_tv") return await refreshToken(c, refresh_text);
     // 请求参数 ==========================================================================
     const params: Record<string, any> = {
         client_id: clients_info.servers ? c.env.alicloud_uid : clients_info.app_uid,

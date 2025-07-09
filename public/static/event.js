@@ -23,7 +23,11 @@ function onSelect() {
     client_uid_input.disabled = false;
     client_uid_views.hidden = false;
     secret_key_views.hidden = true;
-    const driver_pre = driver_txt_input.value.split("_")[0];
+    let driver_pre = driver_txt_input.value.split("_")[0];
+    if (driver_txt_input.value === "alicloud_tv") {
+        driver_pre = "alitv"
+    }
+
     direct_url_input.value = `${current_host}/${driver_pre}/callback`;
 
     // 修改一些样式 ========================================================
@@ -39,7 +43,6 @@ function onSelect() {
         clientIdContainer.style.display = 'none';
         appSecretContainer.style.display = 'none';
         serverUseContainer.style.display = 'none';
-        callbackContainer.style.display = 'none';
         server_use_input.checked = true;
     } else {
         clientIdContainer.style.display = 'block';
@@ -81,6 +84,7 @@ function onSelect() {
         driver_txt_input.value === "onedrive_us" ||
         driver_txt_input.value === "onedrive_de" ||
         driver_txt_input.value === "alicloud_cs" ||
+        driver_txt_input.value === "alicloud_tv" ||
         driver_txt_input.value === "dropboxs_go"
     ) {
         server_use_input.checked = false;

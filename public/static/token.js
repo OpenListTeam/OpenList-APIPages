@@ -4,7 +4,6 @@ async function getToken() {
             const json_byte = Uint8Array.from(atob(url_hash), c => c.charCodeAt(0));
             const json_text = new TextDecoder().decode(json_byte);
             const json_data = JSON.parse(json_text);
-            console.log(json_data);
             const server_use = json_data.server_use;
             const client_uid = json_data.client_uid;
             const secret_key = json_data.secret_key;
