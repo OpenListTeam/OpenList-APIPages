@@ -43,7 +43,7 @@ app.use('*', serveStatic({root: 'public/'}))
 
 serve({
     fetch: app.fetch,
-    port: 3000,
+    port: Number(process.env.SERVER_PORT) || 3000,
 })
 
 export default app
