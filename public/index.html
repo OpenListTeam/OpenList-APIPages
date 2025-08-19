@@ -82,17 +82,38 @@
         <label for="refresh-token" class="form-label">刷新令牌（Refresh Token）</label>
         <textarea id="refresh-token" class="form-control" rows="3" readonly onclick="autoCopy(this)"></textarea>
     </div>
-    <div class="mb-3" id="sharepoint-url-view">
-        <label for="sharepoint-url" class="form-label">SharePoint Site URL</label>
-        <label for="sharepoint-url"></label><input type="text" id="sharepoint-url" class="form-control">
+    <div id="sharepoint-views">
+        <div class="mb-3" id="sharepoint-url-view">
+            <label for="sharepoint-url" class="form-label">SharePoint SiteURL</label>
+            <label for="sharepoint-url"></label><input type="text" id="sharepoint-url" class="form-control">
+        </div>
+        <div class="d-grid gap-2 mb-3" id="sharepoint-btn-view">
+            <button class="btn btn-primary" onclick="getSiteID()">获取 SharePoint 站点ID</button>
+        </div>
+        <div class="mb-3" id="sharepoint-uid-view">
+            <label for="sharepoint-id" class="form-label">SharePoint Site ID</label>
+            <textarea id="sharepoint-id" class="form-control" rows="3" readonly onclick="autoCopy(this)"></textarea>
+        </div>
+        <div class="mb-3" id="odb-webdav-url-view">
+            <label for="odb-webdav-url" class="form-label">Onedrive / SPO 地址</label>
+            <label for="odb-webdav-url"></label><input type="text" id="odb-webdav-url" class="form-control">
+            <div>允许的地址：
+                <br/>https://xxxxx.sharepoint.com/sites/xxxxx/.......
+                <br/>https://xxxxx.sharepoint.com/personal/xxxxx/.......
+                <br/>https://onedrive.live.com/?id=/personal/xxxxxxxxxx/Documents/.......
+                <br/>https://onedrive.live.com/?id=.......&cid=xxxxxxxxxxxx
+                <br/>
+            </div>
+        </div>
+        <div class="d-grid gap-2 mb-3" id="odb-webdav-btn-view">
+            <button class="btn btn-primary" onclick="getWebdav()">获取 WebdavURL 页面路径</button>
+        </div>
+        <div class="mb-3" id="odb-webdav-out-view">
+            <label for="odb-webdav-out" class="form-label">Webdav URL 页面路径</label>
+            <textarea id="odb-webdav-out" class="form-control" rows="3" readonly onclick="autoCopy(this)"></textarea>
+        </div>
     </div>
-    <div class="d-grid gap-2 mb-3" id="sharepoint-btn-view">
-        <button class="btn btn-primary" onclick="getSiteID()">获取 SharePoint 站点ID</button>
-    </div>
-    <div class="mb-3" id="sharepoint-uid-view">
-        <label for="sharepoint-id" class="form-label">SharePoint Site ID</label>
-        <textarea id="sharepoint-id" class="form-control" rows="3" readonly onclick="autoCopy(this)"></textarea>
-    </div>
+
     <div class="text-muted text-center">
         <p style="text-align:center">
             本工具所有用户信息只以Cookie形式存储于浏览器本地<br>
@@ -165,6 +186,7 @@
     const secret_key_input = document.getElementById('secret-key-input');
     const server_use_input = document.getElementById('server-use-input');
     const secret_key_views = document.getElementById('secret-key-views');
+    const shared_all_views = document.getElementById('sharepoint-views');
     const shared_url_views = document.getElementById('sharepoint-url-view')
     const shared_btn_views = document.getElementById('sharepoint-btn-view');
     const shared_uid_views = document.getElementById('sharepoint-uid-view');

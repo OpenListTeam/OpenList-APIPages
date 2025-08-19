@@ -49,15 +49,11 @@ function onSelect() {
     }
     // Onedrive模式需要显示Share Point 相关参数 ===========================
     if (driver_txt_input.value.split("_")[0] === "onedrive") {
-        shared_url_views.hidden = false;
+        shared_all_views.hidden = false;
         shared_btn_views.classList.add('d-grid');
-        shared_btn_views.hidden = false;
-        shared_uid_views.hidden = false;
     } else {
-        shared_url_views.hidden = true;
-        shared_btn_views.hidden = true;
+        shared_all_views.hidden = true;
         shared_btn_views.classList.remove('d-grid');
-        shared_uid_views.hidden = true;
     }
     // 当驱动使用百度云，切换输入的选项 ===================================
     if (driver_txt_input.value.split("_")[0] === "baiduyun") {

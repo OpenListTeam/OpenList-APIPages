@@ -1,3 +1,65 @@
+function getWebdav() {
+    const siteUrl = document.getElementById("odb-webdav-url").value.trim();
+    const siteOut = document.getElementById("odb-webdav-out");
+    console.log("原始URL:", siteUrl);
+
+    try {
+        let resultUrl = "";
+
+        // SharePoint 团队网站处理
+        if (/https?:\/\/[^/]+\.sharepoint\.[^/]+\/sites\/[^/]+/i.test(siteUrl)) {
+            const baseUrl = siteUrl.match(/^(https?:\/\/[^/]+\.sharepoint\.[^/]+\/sites\/[^/]+)/i)[1];
+            resultUrl = baseUrl.endsWith('/') ?
+                `${baseUrl}Shared Documents` :
+                `${baseUrl}/Shared Documents`;
+        }
+        // OneDrive 个人网站处理
+        else if (/https?:\/\/[^/]+-my\.sharepoint\.[^/]+\/personal\/[^/]+/i.test(siteUrl)) {
+            const baseUrl = siteUrl.match(/^(https?:\/\/[^/]+-my\.sharepoint\.[^/]+\/personal\/[^/]+)/i)[1];
+            resultUrl = baseUrl.endsWith('/') ?
+                `${baseUrl}Documents` :
+                `${baseUrl}/Documents`;
+        }
+        // OneDrive Live 处理
+        else if (siteUrl.includes('onedrive.live.com')) {
+            const urlObj = new URL(siteUrl);
+            const params = urlObj.searchParams;
+
+            // 尝试从cid参数获取
+            if (params.has('cid')) {
+                resultUrl = `https://d.docs.live.net/${params.get('cid')}`;
+            }
+            // 尝试从id参数获取
+            else if (params.has('id')) {
+                const idValue = params.get('id');
+                // 格式1: /personal/用户ID/Documents
+                if (idValue.includes('/personal/')) {
+                    const match = idValue.match(/\/personal\/([^/]+)/);
+                    if (match) resultUrl = `https://d.docs.live.net/${match[1]}`;
+                }
+                // 格式2: 用户ID%21
+                else if (idValue.includes('%21')) {
+                    const match = idValue.match(/([^%]+)%21/);
+                    if (match) resultUrl = `https://d.docs.live.net/${match[1]}`;
+                }
+            }
+        }
+
+        // 处理结果
+        if (resultUrl) {
+            siteOut.value = resultUrl;
+            console.log("转换结果:", resultUrl);
+        } else {
+            siteOut.value = "无法识别的URL格式";
+            console.warn("无法识别的URL格式");
+        }
+    } catch (e) {
+        siteOut.value = "URL解析错误: " + e.message;
+        console.error("URL解析错误:", e);
+    }
+}
+
+
 // 获取站点ID
 function getSiteID() {
     const siteUrl = document.getElementById("sharepoint-url").value.trim();
