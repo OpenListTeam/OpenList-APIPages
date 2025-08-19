@@ -1,7 +1,6 @@
 function getWebdav() {
     const siteUrl = document.getElementById("odb-webdav-url").value.trim();
     const siteOut = document.getElementById("odb-webdav-out");
-    console.log("原始URL:", siteUrl);
 
     try {
         let resultUrl = "";
