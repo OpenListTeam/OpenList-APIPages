@@ -49,7 +49,7 @@ function getWebdav() {
             siteOut.value = resultUrl;
         } else {
             siteOut.value = "无法识别的URL格式";
-            console.warn("无法识别的URL格式");
+            
         }
     } catch (e) {
         siteOut.value = "URL解析错误: " + e.message;
