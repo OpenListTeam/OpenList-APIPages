@@ -47,7 +47,6 @@ function getWebdav() {
         // 处理结果
         if (resultUrl) {
             siteOut.value = resultUrl;
-            console.log("转换结果:", resultUrl);
         } else {
             siteOut.value = "无法识别的URL格式";
             console.warn("无法识别的URL格式");
