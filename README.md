@@ -5,7 +5,7 @@
 用于OpenList获取部分网盘API的接口和页面
 
 部署地址：[OpenList Token 获取工具 - 全球站点](https://api.oplist.org/)
-部署地址：[OpenList Token 获取工具 - 中国大陆](https://api.oplist.org/)
+部署地址：[OpenList Token 获取工具 - 中国大陆](https://api.oplist.org.cn/)
 
 ## 部署方法
 
@@ -85,7 +85,7 @@ docker run -d --name oplist-api-server \
 | `OPLIST_CLOUD115_UID` | 否   | string   | 115网盘应用ID                |
 | `OPLIST_CLOUD115_KEY` | 否   | string   | 115网盘应用密钥                |
 | `OPLIST_GOOGLEUI_UID` | 否   | string   | 谷歌客户端ID                  |
-| `OPLIST_GOOGLEUI_KEY` | 否   | string   | 谷歌全局API Key              |
+| `OPLIST_GOOGLEUI_KEY` | 否   | string   | 谷歌客户端秘钥              |
 | `OPLIST_YANDEXUI_UID` | 否   | string   | Yandex应用ID               |
 | `OPLIST_YANDEXUI_KEY` | 否   | string   | Yandex应用密钥               |
 | `OPLIST_DROPBOXS_UID` | 否   | string   | Dropboxx应用ID             |
@@ -153,7 +153,7 @@ cp wrangler.example.jsonc wrangler.encrypt.jsonc
 | `cloud115_uid` | 否   | string   | 115网盘应用ID                |
 | `cloud115_key` | 否   | string   | 115网盘应用密钥                |
 | `googleui_uid` | 否   | string   | 谷歌客户端ID                  |
-| `googleui_key` | 否   | string   | 谷歌全局API Key              |
+| `googleui_key` | 否   | string   | 谷歌客户端秘钥              |
 | `yandexui_uid` | 否   | string   | Yandex应用ID               |
 | `yandexui_key` | 否   | string   | Yandex应用密钥               |
 | `dropboxs_uid` | 否   | string   | Dropboxx应用ID             |
