@@ -25,7 +25,7 @@ export async function oneLogin(c: Context) {
             'Platform': "open_platform",
             'Content-Type': 'application/x-www-form-urlencoded'
         });
-    if(!result.data.accessToken) return c.json({text: "无法获取AccessToken"}, 500);
+    if (!result.data || !result.data.accessToken) return c.json({text: "无法获取AccessToken"}, 500);
     return c.json({text: result.data.accessToken}, 200);
 }
 
