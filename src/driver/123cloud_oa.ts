@@ -15,7 +15,7 @@ export async function oneLogin(c: Context) {
     const clients_info: configs.Clients | undefined = configs.getInfo(c);
     if (!clients_info) return c.json({text: "传入参数缺少"}, 500);
     const params_info: Record<string, any> = {
-        clientID: clients_info.app_uid,
+        clientId: clients_info.app_uid,
         clientSecret: clients_info.app_key,
     };
     if (!clients_info.servers)
