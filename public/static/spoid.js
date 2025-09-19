@@ -15,10 +15,13 @@ function getWebdav() {
         }
         // OneDrive 个人网站处理
         else if (/https?:\/\/[^/]+-my\.sharepoint\.[^/]+\/personal\/[^/]+/i.test(siteUrl)) {
-            const baseUrl = siteUrl.match(/^(https?:\/\/[^/]+-my\.sharepoint\.[^/]+\/personal\/[^/]+)/i)[1];
-            resultUrl = baseUrl.endsWith('/') ?
-                `${baseUrl}Documents` :
-                `${baseUrl}/Documents`;
+            const match = siteUrl.match(/^(https?:\/\/[^/]+-my\.sharepoint\.[^/]+\/personal\/[^/]+)/i);
+            if (match) {
+                const baseUrl = match[1];
+                resultUrl = baseUrl.endsWith('/') ?
+                    `${baseUrl}Documents` :
+                    `${baseUrl}/Documents`;
+            }
         }
         // OneDrive Live 处理
         else if (siteUrl.includes('onedrive.live.com')) {
