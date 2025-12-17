@@ -64,7 +64,7 @@ function getWebdav() {
 
 
 // 获取站点ID
-function getSiteID() {
+function getSiteID(server_use_input = false) {
     const siteUrl = document.getElementById("sharepoint-url").value.trim();
     const access_token = document.getElementById("access-token").value.trim();
     const refresh_token = document.getElementById("refresh-token").value.trim();
@@ -91,22 +91,27 @@ function getSiteID() {
         BAD_REQUEST: "获取出现问题，请检查权限和站点URL，站点URL示例：https://demo.sharepoint.com/site/demo",
         DEFAULT: "请求发生错误"
     };
-
-    // 验证
-    if (!client_uid || !client_key) {
-        idElement.value = ERROR_MESSAGES.MISSING_CREDENTIALS;
+    
+    // 使用服务器提供的uid和key获取站点ID
+    if (site_type.includes("onedrive")){
+        if (!client_uid || !client_key){
+            if (!server_use_input) {
+                idElement.value = ERROR_MESSAGES.MISSING_CREDENTIALS;
+                return;
+            }
+        }
+    }else{
+        idElement.value = ERROR_MESSAGES.NOT_SUPPORTED;
         return;
     }
+    
+    // 验证
     if (!access_token || !refresh_token) {
         idElement.value = ERROR_MESSAGES.MISSING_TOKENS;
         return;
     }
     if (!siteUrl) {
         idElement.value = ERROR_MESSAGES.MISSING_URL;
-        return;
-    }
-    if (!site_type.includes("onedrive")) {
-        idElement.value = ERROR_MESSAGES.NOT_SUPPORTED;
         return;
     }
     if (!GATEWAYS[site_type]) {
