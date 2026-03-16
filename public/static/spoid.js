@@ -92,7 +92,10 @@ function getSiteID(server_use_input = false) {
         DEFAULT: "请求发生错误"
     };
     
-    // 使用服务器提供的uid和key获取站点ID
+    // OneDrive 参数校验：
+    // 默认要求填写客户端 ID（client_uid）和应用机密（client_key）；
+    // 当 server_use_input 为 true（例如勾选“使用 OpenList 提供的参数”）时，
+    // 跳过本地必填校验，由服务器 / OpenList 提供这些参数
     if (site_type.includes("onedrive")){
         if (!client_uid || !client_key){
             if (!server_use_input) {
