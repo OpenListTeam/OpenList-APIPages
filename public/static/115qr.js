@@ -11,7 +11,7 @@ async function start115CloudQRLogin() {
         /** @type {string | null} */
         let uid = null;
 
-        // 生成二维码 - 使用带指纹的请求
+        // 生成二维码 - 向后端发送请求
         const response = await fetch(`/115cloud_qr/get_qr`);
         if (response.ok) {
             /** @type {QRCodeResponse} */

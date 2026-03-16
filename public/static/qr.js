@@ -18,9 +18,8 @@ var checkQRStatus = null;
 
 /**
  * @summary 刷新二维码
- * @param {string} driver_txt 驱动类型
  */
-async function refreshQRCode(driver_txt) {
+async function refreshQRCode() {
     document.getElementById('refresh-qr-btn').style.display = 'none';
     // 清理旧会话
     switch (driver_txt) {
