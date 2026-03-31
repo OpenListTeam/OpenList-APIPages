@@ -15,15 +15,15 @@ export async function oneLogin(c: Context) {
     const clients_info: configs.Clients | undefined = configs.getInfo(c);
     if (!clients_info) return c.json({text: "传入参数缺少"}, 500);
     const params_info: Record<string, any> = {
-        clientId: clients_info.app_uid,
-        clientSecret: clients_info.app_key,
+        clientId: clients_info.servers ? c.env.cloud123_uid : clients_info.app_uid,
+        clientSecret: clients_info.servers ? c.env.cloud123_key : clients_info.app_key,
     };
     if (!clients_info.servers)
         setCookie(c, clients_info)
-    const result =  await pubLogin(c, params_info, driver_map[0],
+    const result =  await pubLogin(c, JSON.stringify(params_info), driver_map[0],
         false, "POST", "json", {
             'Platform': "open_platform",
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         });
     if (!result.data || !result.data.accessToken) return c.json({text: "无法获取AccessToken"}, 500);
     return c.json({text: result.data.accessToken}, 200);
