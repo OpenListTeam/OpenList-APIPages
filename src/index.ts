@@ -29,7 +29,7 @@ export const app = new Hono<{ Bindings: Bindings }>()
 
 // 媒体库应用页面 ########################################################################
 app.get('/app', async (c) => {
-    return c.redirect('/app.html');
+    return c.redirect('/index.html');
 })
 
 // 登录申请 ##############################################################################
