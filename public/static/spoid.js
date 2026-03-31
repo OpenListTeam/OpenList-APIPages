@@ -91,25 +91,15 @@ function getSiteID(server_use_input = false) {
         BAD_REQUEST: "获取出现问题，请检查权限和站点URL，站点URL示例：https://demo.sharepoint.com/site/demo",
         DEFAULT: "请求发生错误"
     };
-    
-    // OneDrive 参数校验：
-    // 默认要求填写客户端 ID（client_uid）和应用机密（client_key）；
-    // 当 server_use_input 为 true（例如勾选“使用 OpenList 提供的参数”）时，
-    // 跳过本地必填校验，由服务器 / OpenList 提供这些参数
-    if (site_type.includes("onedrive")){
-        if (!client_uid || !client_key){
-            if (!server_use_input) {
-                idElement.value = ERROR_MESSAGES.MISSING_CREDENTIALS;
-                return;
-            }
-        }
-    }else{
+
+    // OneDrive 类型校验：仅允许 OneDrive 相关驱动执行站点 ID 查询
+    if (!site_type.includes("onedrive")) {
         idElement.value = ERROR_MESSAGES.NOT_SUPPORTED;
         return;
     }
-    
-    // 验证
-    if (!access_token || !refresh_token) {
+
+    // 验证访问令牌和站点 URL
+    if (!access_token) {
         idElement.value = ERROR_MESSAGES.MISSING_TOKENS;
         return;
     }
