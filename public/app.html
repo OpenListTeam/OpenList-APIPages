@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenList - 媒体库</title>
+  <link rel="stylesheet" href="/static/app.css">
+  <link rel="icon" type="image/png" href="https://cdn.oplist.org/gh/OpenListTeam/Logo@main/logo/32x32.png">
+  <link rel="icon" type="image/png" href="https://cdn.oplist.org/gh/OpenListTeam/Logo@main/logo/64x64.png">
+  <link rel="apple-touch-icon" type="image/png" href="https://cdn.oplist.org/gh/OpenListTeam/Logo@main/logo.png">
+</head>
+<body>
+
+<!-- 移动端菜单按钮 -->
+<button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+<!-- 移动端遮罩 -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- ═══════════════ 侧边栏 ═══════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <img src="https://cdn.oplist.org/gh/OpenListTeam/Logo@main/logo/64x64.png" alt="OpenList">
+    <span class="title">OpenList</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-label">文件管理</div>
+    <button class="nav-item active" data-route="files">
+      <span class="icon">📂</span>
+      <span class="label">
+        <span class="name">文件浏览</span>
+        <span class="desc">浏览和管理文件</span>
+      </span>
+    </button>
+
+    <div class="nav-label" style="margin-top:8px;">媒体库</div>
+    <button class="nav-item" data-route="video">
+      <span class="icon">🎬</span>
+      <span class="label">
+        <span class="name">影视资源</span>
+        <span class="desc">电影和电视剧</span>
+      </span>
+    </button>
+    <button class="nav-item" data-route="music">
+      <span class="icon">🎵</span>
+      <span class="label">
+        <span class="name">音乐资源</span>
+        <span class="desc">专辑和歌曲</span>
+      </span>
+    </button>
+    <button class="nav-item" data-route="image">
+      <span class="icon">🖼️</span>
+      <span class="label">
+        <span class="name">图片图库</span>
+        <span class="desc">照片和图片</span>
+      </span>
+    </button>
+    <button class="nav-item" data-route="books">
+      <span class="icon">📚</span>
+      <span class="label">
+        <span class="name">书籍库</span>
+        <span class="desc">电子书阅读</span>
+      </span>
+    </button>
+
+    <div class="nav-label" style="margin-top:8px;">系统</div>
+    <button class="nav-item" data-route="media-manage">
+      <span class="icon">🛠️</span>
+      <span class="label">
+        <span class="name">媒体库管理</span>
+        <span class="desc">配置、扫描和刮削</span>
+      </span>
+    </button>
+    <button class="nav-item" data-route="settings">
+      <span class="icon">⚙️</span>
+      <span class="label">
+        <span class="name">站点设置</span>
+        <span class="desc">路径和连接配置</span>
+      </span>
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="sidebar-btn" id="btn-collapse" title="折叠侧边栏">◀</button>
+    <button class="sidebar-btn" id="btn-theme" title="切换主题">🌙</button>
+    <a href="/" class="sidebar-btn" title="Token 工具" style="text-decoration:none;">🔐</a>
+  </div>
+</aside>
+
+<!-- ═══════════════ 主内容区 ═══════════════ -->
+<main class="main-content">
+  <!-- 顶栏 -->
+  <header class="topbar">
+    <div class="topbar-title" id="topbar-title">📂 文件浏览</div>
+    <div class="topbar-actions">
+      <a href="/" class="topbar-btn" title="Token 获取工具">🔐 Token 工具</a>
+    </div>
+  </header>
+
+  <!-- 页面容器 -->
+  <div class="page-container" id="page-container">
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <div>加载中...</div>
+    </div>
+  </div>
+</main>
+
+<!-- ═══════════════ 底部音乐播放器 ═══════════════ -->
+<div class="music-player hidden" id="music-player">
+  <!-- 曲目信息 -->
+  <div class="player-track-info">
+    <img class="album-art" id="player-album-art" src="" alt="" style="display:none;">
+    <div class="track-text">
+      <div class="track-name" id="player-track-name">未在播放</div>
+      <div class="track-artist" id="player-track-artist"></div>
+    </div>
+  </div>
+
+  <!-- 播放控制 -->
+  <div class="player-controls">
+    <div class="player-buttons">
+      <button class="player-btn" id="player-mode-btn" title="播放模式">➡️</button>
+      <button class="player-btn" id="player-prev-btn" title="上一首">⏮</button>
+      <button class="player-btn play-pause" id="player-play-btn" title="播放/暂停">▶</button>
+      <button class="player-btn" id="player-next-btn" title="下一首">⏭</button>
+    </div>
+    <div class="player-progress">
+      <span class="player-time" id="player-time-now">0:00</span>
+      <div class="progress-bar" id="player-progress-bar">
+        <div class="progress-fill" id="player-progress-fill" style="width:0%"></div>
+      </div>
+      <span class="player-time" id="player-time-total">0:00</span>
+    </div>
+  </div>
+
+  <!-- 额外控制 -->
+  <div class="player-extra">
+    <button class="player-btn" style="font-size:16px;" onclick="MusicPlayer.setVolume(MusicPlayer.volume > 0 ? 0 : 0.8)">🔊</button>
+    <div class="volume-slider" id="volume-slider">
+      <div class="volume-fill" id="volume-fill" style="width:80%"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 歌词全屏页 ═══════════════ -->
+<div class="lyrics-overlay" id="lyrics-overlay">
+  <div class="lyrics-bg" id="lyrics-bg"></div>
+  <div class="lyrics-content">
+    <!-- 歌词页头部 -->
+    <div class="lyrics-header">
+      <div class="lyrics-track-info">
+        <img class="lyrics-album-art" id="lyrics-album-art" src="" alt="">
+        <div>
+          <div class="lyrics-track-name" id="lyrics-track-name"></div>
+          <div class="lyrics-track-artist" id="lyrics-track-artist"></div>
+        </div>
+      </div>
+      <button class="lyrics-close-btn" id="lyrics-close-btn">✕</button>
+    </div>
+
+    <!-- 歌词滚动区 -->
+    <div class="lyrics-scroll" id="lyrics-scroll">
+      <div class="lyrics-line" style="padding-top:40vh;color:rgba(255,255,255,0.4);">暂无歌词</div>
+    </div>
+
+    <!-- 歌词页底部播放控制 -->
+    <div class="lyrics-player-controls">
+      <div class="player-progress" style="max-width:500px;width:100%;">
+        <span class="player-time" id="lyrics-time-now" style="color:rgba(255,255,255,0.5);">0:00</span>
+        <div class="progress-bar" id="lyrics-progress-bar">
+          <div class="progress-fill" id="lyrics-progress-fill" style="width:0%"></div>
+        </div>
+        <span class="player-time" id="lyrics-time-total" style="color:rgba(255,255,255,0.5);">0:00</span>
+      </div>
+      <div class="player-buttons" style="margin-top:4px;">
+        <button class="player-btn" id="lyrics-prev-btn" style="color:rgba(255,255,255,0.6);">⏮</button>
+        <button class="player-btn play-pause" id="lyrics-play-btn">▶</button>
+        <button class="player-btn" id="lyrics-next-btn" style="color:rgba(255,255,255,0.6);">⏭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 脚本加载 ═══════════════ -->
+<script src="/static/app.js"></script>
+<script src="/static/settings.js"></script>
+<script src="/static/browser.js"></script>
+<script src="/static/video.js"></script>
+<script src="/static/music.js"></script>
+<script src="/static/image.js"></script>
+<script src="/static/books.js"></script>
+<script src="/static/media-manage.js"></script>
+<script>
+  // 初始化音乐播放器UI
+  document.addEventListener('DOMContentLoaded', () => {
+    initMusicPlayerUI();
+  });
+</script>
+
+</body>
+</html>

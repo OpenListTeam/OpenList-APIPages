@@ -21,6 +21,8 @@ app.use('*', async(c, next)=>{
         baiduyun_key: process.env.baiduyun_key || '',
         cloud115_uid: process.env.cloud115_uid || '',
         cloud115_key: process.env.cloud115_key || '',
+        cloud123_uid: process.env.cloud123_uid || '',
+        cloud123_key: process.env.cloud123_key || '',
         googleui_uid: process.env.googleui_uid || '',
         googleui_key: process.env.googleui_key || '',
         yandexui_uid: process.env.yandexui_uid || '',
