@@ -3,6 +3,7 @@ import * as oneui from './driver/onedrive_oa';
 import * as aliui from './driver/alicloud_oa';
 import * as aliqr from './driver/alicloud_cs';
 import * as ui115 from './driver/115cloud_oa';
+import * as qr115 from './driver/115cloud_qr';
 import * as ui123 from './driver/123cloud_oa';
 import * as baidu from './driver/baiduyun_oa';
 import * as goapi from './driver/googleui_oa';
@@ -119,6 +120,14 @@ app.get('/115cloud/requests', async (c: Context) => {
 // 令牌申请 ##############################################################################
 app.get('/115cloud/callback', async (c: Context) => {
     return ui115.oneToken(c);
+});
+
+app.get('/115cloud_qr/get_qr', (c: Context) => { // In fact, we should remove all `async` in this file.
+    return qr115.getQRCode(c);
+});
+
+app.post('/115cloud_qr/check_status', (c: Context) => {
+    return qr115.getTokenStatus(c);
 });
 
 // 令牌刷新 ##############################################################################

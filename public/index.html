@@ -33,6 +33,7 @@
             <option value="baiduyun_ob">百度网盘 (OAuth2) 手动登录</option>
             <option value="quarkyun_fn">夸克网盘 (OAuth2) 验证登录</option>
             <option value="115cloud_go">115 网盘 (OAuth2) 跳转登录</option>
+            <option value="115cloud_qr">115 网盘 扫码</option>
             <option value="123cloud_go">123 网盘 (OAuth2) 跳转登录</option>
             <option value="dropboxs_go">Drop Box (OAuth2) 跳转登录</option>
             <option value="googleui_go">GoogleDrive Login (OAuth2)</option>
@@ -133,12 +134,15 @@
 <div id="qr-modal" class="qr-modal">
     <div class="qr-modal-content">
         <span class="close-btn" onclick="closeQRModal()">&times;</span>
-        <h4>阿里云盘扫码登录v2</h4>
+        <h4 id="qr-modal-title"></h4>
         <div id="qr-code-container" class="qr-code-container" style="display: none;">
             <div id="qr-code-display"></div>
         </div>
         <div id="qr-status" class="qr-status" style="display: none;"></div>
         <div class="mt-3">
+            <button id="qr-status-btn" class="btn btn-secondary" onclick="checkQRStatus()">
+                刷新状态
+            </button>
             <button id="refresh-qr-btn" class="btn btn-secondary" onclick="refreshQRCode()" style="display: none;">
                 刷新二维码
             </button>
@@ -171,7 +175,9 @@
 <script src="/static/login.js"></script>
 <script src="/static/token.js"></script>
 <script src="/static/theme.js"></script>
+<script src="/static/qr.js"></script>
 <script src="/static/aliv2.js"></script>
+<script src="/static/115qr.js"></script>
 <script src="/static/eulas.js"></script>
 <script src="/static/spoid.js"></script>
 <script src="/static/input.js"></script>
