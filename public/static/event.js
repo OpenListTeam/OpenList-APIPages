@@ -41,6 +41,8 @@ function onSelect() {
         appSecretContainer.style.display = 'none';
         serverUseContainer.style.display = 'none';
         callbackContainer.style.display = 'none';
+        // 这些驱动使用服务器端配置，强制启用 server_use
+        server_use_input.checked = true;
     } else {
         clientIdContainer.style.display = 'block';
         appSecretContainer.style.display = 'block';
