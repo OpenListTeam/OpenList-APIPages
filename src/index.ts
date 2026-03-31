@@ -20,12 +20,18 @@ export type Bindings = {
     alicloud_uid: string, alicloud_key: string,
     baiduyun_uid: string, baiduyun_key: string,
     cloud115_uid: string, cloud115_key: string,
+    cloud123_uid: string, cloud123_key: string,
     googleui_uid: string, googleui_key: string,
     yandexui_uid: string, yandexui_key: string,
     dropboxs_uid: string, dropboxs_key: string,
 }
 
 export const app = new Hono<{ Bindings: Bindings }>()
+
+// 媒体库应用页面 ########################################################################
+app.get('/app', async (c) => {
+    return c.redirect('/index.html');
+})
 
 // 登录申请 ##############################################################################
 app.get('/dropboxs/requests', async (c) => {

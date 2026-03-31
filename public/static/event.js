@@ -74,7 +74,6 @@ function onSelect() {
     // }
     // 禁用部分驱动使用官方参数 ===========================================
     if (driver_txt_input.value === "baiduyun_ob" ||
-        driver_txt_input.value === "123cloud_go" ||
         driver_txt_input.value === "onedrive_cn" ||
         driver_txt_input.value === "onedrive_us" ||
         driver_txt_input.value === "onedrive_de" ||
