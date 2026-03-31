@@ -39,7 +39,14 @@ export async function getQRCode(c: Context) {
 
 export async function getTokenStatus(c: Context) {
     const requestBody: QRCodeResponse = await c.req.json();
-    const resp = await fetch(`https://qrcodeapi.115.com/get/status/?uid=${requestBody.uid}&time=${requestBody.time}&sign=${requestBody.sign}&_=${requestBody._}`);
+    const url = new URL("https://qrcodeapi.115.com/get/status/");
+    url.search = new URLSearchParams({
+        uid: requestBody.uid,
+        time: String(requestBody.time),
+        sign: requestBody.sign,
+        _: requestBody._,
+    }).toString();
+    const resp = await fetch(url.toString());
     const status: StatusResponse = await resp.json();
     return c.text(status.data.status.toString());
     /**
