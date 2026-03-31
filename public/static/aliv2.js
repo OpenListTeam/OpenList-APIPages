@@ -68,7 +68,8 @@ async function startAlicloud2Login() {
                 // console.log(`会话将在 ${expireMinutes} 分钟后过期`);
             }
 
-            startStatusCheck();
+            checkQRStatus = checkAlicloud2Status;
+            startAliQRStatusCheck();
         } else {
             setQRStatus(result.error || '生成二维码失败', 'error');
             document.getElementById('refresh-qr-btn').style.display = 'inline-block';
@@ -80,29 +81,14 @@ async function startAlicloud2Login() {
     }
 }
 
-// 显示二维码
-function showQRCode(qrUrl) {
-    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrUrl)}`;
-    document.getElementById('qr-code-display').innerHTML = `<img src="${qrApiUrl}" alt="二维码" class="qr-code-img">`;
-    document.getElementById('qr-code-container').style.display = 'block';
-}
-
-// 设置状态
-function setQRStatus(message, type) {
-    const statusEl = document.getElementById('qr-status');
-    statusEl.textContent = message;
-    statusEl.className = `qr-status ${type}`;
-    statusEl.style.display = 'block';
-}
-
 // 开始状态检查
-function startStatusCheck() {
-    stopStatusCheck();
+function startAliQRStatusCheck() {
+    stopAliQRStatusCheck();
     alicloud2CheckInterval = setInterval(checkAlicloud2Status, 2000);
 }
 
 // 停止状态检查
-function stopStatusCheck() {
+function stopAliQRStatusCheck() {
     if (alicloud2CheckInterval) {
         clearInterval(alicloud2CheckInterval);
         alicloud2CheckInterval = null;
@@ -118,7 +104,7 @@ async function checkAlicloud2Status() {
     if (elapsed > 180000) { // 3分钟
         setQRStatus('二维码可能已过期，建议点击刷新重新生成', 'error');
         document.getElementById('refresh-qr-btn').style.display = 'inline-block';
-        stopStatusCheck();
+        stopAliQRStatusCheck();
         return;
     }
 
@@ -138,7 +124,7 @@ async function checkAlicloud2Status() {
                     break;
                 case 'CONFIRMED':
                     setQRStatus('登录成功！正在获取用户信息...', 'success');
-                    stopStatusCheck();
+                    stopAliQRStatusCheck();
                     // 稍等一下确保token已保存
                     setTimeout(async () => {
                         await getAlicloud2UserInfo();
@@ -146,7 +132,7 @@ async function checkAlicloud2Status() {
                     break;
                 case 'EXPIRED':
                     setQRStatus('二维码已过期，请点击刷新重新生成', 'error');
-                    stopStatusCheck();
+                    stopAliQRStatusCheck();
                     document.getElementById('refresh-qr-btn').style.display = 'inline-block';
                     break;
             }
@@ -155,7 +141,7 @@ async function checkAlicloud2Status() {
             if (response.status === 403) {
                 setQRStatus('会话验证失败，请重新生成二维码', 'error');
                 document.getElementById('refresh-qr-btn').style.display = 'inline-block';
-                stopStatusCheck();
+                stopAliQRStatusCheck();
             } else {
                 setQRStatus('检查状态失败: ' + (result.error || '未知错误'), 'error');
                 document.getElementById('refresh-qr-btn').style.display = 'inline-block';
@@ -213,37 +199,5 @@ async function getAlicloud2UserInfo() {
         setQRStatus('获取用户信息失败', 'error');
         console.error('获取用户信息失败:', error);
     }
-}
-
-// 刷新二维码
-async function refreshQRCode() {
-    document.getElementById('refresh-qr-btn').style.display = 'none';
-    // 清理旧会话
-    if (alicloud2SessionId) {
-        try {
-            await fetchWithFingerprint(`/alicloud2/logout?session_id=${alicloud2SessionId}`);
-        } catch (e) {
-            // console.log('清理旧会话失败:', e);
-        }
-        alicloud2SessionId = null;
-    }
-    await startAlicloud2Login();
-}
-
-// 关闭模态框
-function closeQRModal() {
-    document.getElementById('qr-modal').style.display = 'none';
-    stopStatusCheck();
-
-    // 清理会话
-    if (alicloud2SessionId) {
-        fetchWithFingerprint(`/alicloud2/logout?session_id=${alicloud2SessionId}`);
-        alicloud2SessionId = null;
-    }
-
-    // 重置界面
-    document.getElementById('qr-code-container').style.display = 'none';
-    document.getElementById('qr-status').style.display = 'none';
-    document.getElementById('refresh-qr-btn').style.display = 'none';
 }
 

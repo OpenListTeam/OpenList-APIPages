@@ -1,15 +1,31 @@
 // import Swal from 'sweetalert2';
 
+/** @type {string | undefined} */
+var driver_txt;
+
 // 获取登录秘钥 #######################################################
 async function getLogin(refresh = false) {
     let server_use = document.getElementById("server-use-input").checked;
     let secret_key = document.getElementById("secret-key-input").value;
     let client_uid = document.getElementById("client-uid-input").value;
     let client_key = document.getElementById("client-key-input").value;
-    let driver_txt = document.getElementById("driver-txt-input").value;
+    driver_txt = document.getElementById("driver-txt-input").value;
     let refresh_ui = document.getElementById("refresh-token").value;
+    /** @type {HTMLHeadingElement} */
+    const qrModalTitle = document.getElementById('qr-modal-title');
     let driver_pre = driver_txt.split("_")[0]
     let check_flag = true;
+    // 阿里云盘扫码v2直接调用专用API，不需要构建传统的requests路径
+    if (driver_txt === "alicloud_cs" && !refresh) {
+        qrModalTitle.textContent = '阿里云盘扫码登录v2';
+        await startAlicloud2Login();
+        return;
+    } else if (driver_txt === "115cloud_qr") {
+        // Ignore refresh
+        qrModalTitle.textContent = '115网盘扫码登录';
+        await start115CloudQRLogin();
+        return;
+    }
     // 验证秘钥情况 ==================================================
     if (!server_use) {
         if (driver_txt !== "alicloud_cs"
@@ -25,11 +41,6 @@ async function getLogin(refresh = false) {
                 '请先填写AppID和AppKey')
             return;
         }
-    }
-    // 阿里云盘扫码v2直接调用专用API，不需要构建传统的requests路径
-    if (driver_txt === "alicloud_cs" && !refresh) {
-        await startAlicloud2Login();
-        return;
     }
     // 刷新秘钥情况 =================================================
     let base_urls = "/requests?client_uid="
