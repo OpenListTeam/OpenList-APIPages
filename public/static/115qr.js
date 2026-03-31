@@ -8,15 +8,11 @@ async function start115CloudQRLogin() {
         document.getElementById('qr-modal').style.display = 'block';
         setQRStatus('正在生成二维码...', 'waiting');
 
-        /** @type {string | null} */
-        let uid = null;
-
         // 生成二维码 - 向后端发送请求
         const response = await fetch(`/115cloud_qr/get_qr`);
         if (response.ok) {
             /** @type {QRCodeResponse} */
             const result = await response.json();
-            uid = result.uid
             showQRCode(result.qrcode);
 
             setQRStatus('请使用115 App扫描二维码', 'waiting');
