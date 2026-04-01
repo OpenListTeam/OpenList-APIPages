@@ -5,6 +5,7 @@ import {pubLogin} from "../shares/oauthv2";
 import * as configs from "../shares/configs";
 import {pubParse} from "../shares/urlback";
 import {encodeCallbackData} from "../shares/secrets";
+import {pubRenew} from "../shares/refresh";
 
 
 const driver_map: string[] = [
@@ -75,5 +76,16 @@ export async function oneToken(c: Context) {
 
 // 刷新令牌 ##############################################################################
 export async function genToken(c: Context) {
-    return c.json({text: "此网盘不支持"}, 500);
+    const refresh_text: string | undefined = c.req.query('refresh_ui');
+    if (!refresh_text) return c.json({text: "缺少刷新令牌"}, 500);
+    const params: Record<string, string> = {
+        client_id: c.env.cloud123_uid,
+        client_secret: c.env.cloud123_key,
+        grant_type: "refresh_token",
+        redirect_uri: c.env.cloud123_url,
+        refresh_token: refresh_text
+    };
+    return await pubRenew(
+        c, driver_map[1], params,
+        "POST", "access_token", "refresh_token");
 }
