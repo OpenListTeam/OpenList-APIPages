@@ -61,6 +61,9 @@ docker run -d --name oplist-api-server \
   -e OPLIST_DROPBOXS_KEY= `#optional` \
   -e OPLIST_QUARKPAN_UID= `#optional` \
   -e OPLIST_QUARKPAN_KEY= `#optional` \
+  -e OPLIST_CLOUD123_UID= `#optional` \
+  -e OPLIST_CLOUD123_KEY= `#optional` \
+  -e OPLIST_CLOUD123_URL= `#optional` \
   openlistteam/openlist_api_server:latest 
 ```
 - 可以替换镜像为ghcr:
@@ -92,6 +95,9 @@ docker run -d --name oplist-api-server \
 | `OPLIST_DROPBOXS_KEY` | 否   | string   | Dropbox应用密钥              |
 | `OPLIST_QUARKPAN_UID` | 否   | string   | 夸克云盘x应用ID                |
 | `OPLIST_QUARKPAN_KEY` | 否   | string   | 夸克云盘应用密钥                 |
+| `OPLIST_CLOUD123_UID` | 否   | string   | 123云盘客户端ID               |
+| `OPLIST_CLOUD123_KEY` | 否   | string   | 123云盘客户端密钥              |
+| `OPLIST_CLOUD123_URL` | 否   | string   | 123云盘API地址               |
 
 
 ### 边缘部署
@@ -133,7 +139,10 @@ cp wrangler.example.jsonc wrangler.encrypt.jsonc
     "dropboxs_uid": "*****************************",
     "dropboxs_key": "*****************************",
     "quarkpan_uid": "*****************************",
-    "quarkpan_key": "*****************************"
+    "quarkpan_key": "*****************************",
+    "cloud123_uid": "*****************************",
+    "cloud123_key": "*****************************",
+    "cloud123_url": "*****************************"
   },
 ```
 
@@ -160,6 +169,9 @@ cp wrangler.example.jsonc wrangler.encrypt.jsonc
 | `dropboxs_key` | 否   | string   | Dropbox应用密钥              |
 | `quarkpan_uid` | 否   | string   | 夸克云盘x应用ID                |
 | `quarkpan_key` | 否   | string   | 夸克云盘应用密钥                 |
+| `cloud123_uid` | 否   | string   | 123云盘客户端ID               |
+| `cloud123_key` | 否   | string   | 123云盘客户端密钥              |
+| `cloud123_url` | 否   | string   | 123云盘API地址               |
 
 
 #### 测试代码

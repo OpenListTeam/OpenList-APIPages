@@ -19,3 +19,4 @@ wrangler.encrypt.jsonc
 .edgeone/*
 !.edgeone/project.json
 .tef_dist/*
+dist/

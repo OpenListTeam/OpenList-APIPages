@@ -17,6 +17,9 @@
 # "dropboxs_key": "",
 # "quarkpan_uid": "",
 # "quarkpan_key": "",
+# "cloud123_uid": "",
+# "cloud123_key": "",
+# "cloud123_url": "",
 
 #替换目录下wrangler文件中的MAIN_URLS
 if [ -z "${OPLIST_MAIN_URLS}" ]; then
@@ -150,6 +153,28 @@ if [ -z "${OPLIST_QUARKPAN_KEY}" ]; then
 else
     echo "Replacing quarkpan_key in wrangler file..."
     sed -i "s|\"quarkpan_key\":.*|\"quarkpan_key\": \"${OPLIST_QUARKPAN_KEY}\",|" ./wrangler.jsonc
+fi
+# 替换目录下wrangler文件中的cloud123_uid
+if [ -z "${OPLIST_CLOUD123_UID}" ]; then
+    echo "CLOUD123_UID is not set, skipping replacement."
+else
+    echo "Replacing cloud123_uid in wrangler file..."
+    sed -i "s|\"cloud123_uid\":.*|\"cloud123_uid\": \"${OPLIST_CLOUD123_UID}\",|" ./wrangler.jsonc
+fi
+# 替换目录下wrangler文件中的cloud123_key
+if [ -z "${OPLIST_CLOUD123_KEY}" ]; then
+    echo "CLOUD123_KEY is not set, skipping replacement."
+else
+    echo "Replacing cloud123_key in wrangler file..."
+    sed -i "s|\"cloud123_key\":.*|\"cloud123_key\": \"${OPLIST_CLOUD123_KEY}\",|" ./wrangler.jsonc
+fi
+# 替换目录下wrangler文件中的cloud123_url
+if [ -z "${OPLIST_CLOUD123_URL}" ]; then
+    echo "CLOUD123_URL is not set, skipping replacement."
+else
+    echo "Replacing cloud123_url in wrangler file..."
+    ESCAPED_CLOUD123_URL=$(printf '%s' "${OPLIST_CLOUD123_URL}" | sed 's/[&|\\]/\\&/g')
+    sed -i "s|\"cloud123_url\":.*|\"cloud123_url\": \"${ESCAPED_CLOUD123_URL}\",|" ./wrangler.jsonc
 fi
 
 

@@ -58,7 +58,7 @@ export async function urlParse(c: Context) {
     // result.json.server_use = false;
     // return c.redirect("/#" + encodeCallbackData(result.json));
     return await pubParse(c, clients_info,
-        JSON.stringify(params_info), driver_map[1], "POST",
+        params_info, driver_map[1], "POST",
         "msg", "data.accessToken", "data.refreshToken",
         "", {'Content-Type': 'application/json'});
 }
@@ -74,7 +74,7 @@ export async function apiRenew(c: Context) {
         refreshToken: refresh_text,
         trimAppId: "com.trim.cloudstorage"
     };
-    return await pubRenew(c, driver_map[2], JSON.stringify(params_info),
+    return await pubRenew(c, driver_map[2], params_info,
         "POST", "data.tokenInfo.accessToken",
         "data.tokenInfo.refreshToken", "msg",
         "", {'Content-Type': 'application/json'});
