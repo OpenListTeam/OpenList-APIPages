@@ -173,7 +173,8 @@ if [ -z "${OPLIST_CLOUD123_URL}" ]; then
     echo "CLOUD123_URL is not set, skipping replacement."
 else
     echo "Replacing cloud123_url in .env file..."
-    sed -i "s|cloud123_url=.*|cloud123_url=${OPLIST_CLOUD123_URL}|" .env
+    ESCAPED_CLOUD123_URL=$(printf '%s' "${OPLIST_CLOUD123_URL}" | sed 's/[&|\\]/\\&/g')
+    sed -i "s|cloud123_url=.*|cloud123_url=${ESCAPED_CLOUD123_URL}|" .env
 fi
 
 # 执行npm run dev
