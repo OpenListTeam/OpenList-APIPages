@@ -24,6 +24,7 @@ export type Bindings = {
     googleui_uid: string, googleui_key: string,
     yandexui_uid: string, yandexui_key: string,
     dropboxs_uid: string, dropboxs_key: string,
+    cloud123_url: string,
 }
 
 export const app = new Hono<{ Bindings: Bindings }>()

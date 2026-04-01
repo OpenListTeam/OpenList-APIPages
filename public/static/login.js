@@ -92,6 +92,7 @@ async function getLogin(refresh = false) {
                 || driver_pre === "onedrive" || driver_pre === "115cloud"
                 || driver_pre === "googleui" || driver_pre === "yandexui"
                 || driver_pre === "dropboxs" || driver_pre === "quarkyun"
+                || driver_txt === "123cloud_oa"
             ) {
                 window.location.href = response_data.text;
             }
@@ -118,7 +119,7 @@ async function getLogin(refresh = false) {
                 });
             }
             // 123网盘直接获取 ===========================================================
-            if (driver_pre === "123cloud") {
+            if (driver_txt === "123cloud_go") {
                 document.getElementById("access-token").value = response_data.text;
                 return;
             }

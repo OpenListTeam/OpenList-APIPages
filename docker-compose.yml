@@ -24,3 +24,6 @@ services:
       - OPLIST_DROPBOXS_KEY= #optional
       - OPLIST_QUARKPAN_UID= #optional
       - OPLIST_QUARKPAN_KEY= #optional
+      - OPLIST_CLOUD123_UID= #optional
+      - OPLIST_CLOUD123_KEY= #optional
+      - OPLIST_CLOUD123_URL= #optional

@@ -152,6 +152,30 @@ else
     sed -i "s|quarkpan_key=.*|quarkpan_key=${OPLIST_QUARKPAN_KEY}|" .env
 fi
 
+# 替换.env文件中的cloud123_uid
+if [ -z "${OPLIST_CLOUD123_UID}" ]; then
+    echo "CLOUD123_UID is not set, skipping replacement."
+else
+    echo "Replacing cloud123_uid in .env file..."
+    sed -i "s|cloud123_uid=.*|cloud123_uid=${OPLIST_CLOUD123_UID}|" .env
+fi
+
+# 替换.env文件中的cloud123_key
+if [ -z "${OPLIST_CLOUD123_KEY}" ]; then
+    echo "CLOUD123_KEY is not set, skipping replacement."
+else
+    echo "Replacing cloud123_key in .env file..."
+    sed -i "s|cloud123_key=.*|cloud123_key=${OPLIST_CLOUD123_KEY}|" .env
+fi
+
+# 替换.env文件中的cloud123_url
+if [ -z "${OPLIST_CLOUD123_URL}" ]; then
+    echo "CLOUD123_URL is not set, skipping replacement."
+else
+    echo "Replacing cloud123_url in .env file..."
+    sed -i "s|cloud123_url=.*|cloud123_url=${OPLIST_CLOUD123_URL}|" .env
+fi
+
 # 执行npm run dev
 echo "Starting wrangler dev..."
 npm run build-js && npm run deploy-js

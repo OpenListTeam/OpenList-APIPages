@@ -78,9 +78,15 @@ function onSelect() {
         driver_txt_input.value === "onedrive_us" ||
         driver_txt_input.value === "onedrive_de" ||
         driver_txt_input.value === "alicloud_cs" ||
+        driver_txt_input.value === "123cloud_go" ||
         driver_txt_input.value === "dropboxs_go"
     ) {
         server_use_input.checked = false;
+        server_use_input.disabled = true;
+    }
+    // 部分驱动强制使用官方参数 =============================================
+    if (driver_txt_input.value === "123cloud_oa") {
+        server_use_input.checked = true;
         server_use_input.disabled = true;
     }
     // 检查是否选中服务器处理 ===============================================
