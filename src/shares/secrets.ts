@@ -10,6 +10,7 @@ export function encodeCallbackData(data: Secrets) {
 export interface Secrets {
     access_token?: string;
     refresh_token?: string;
+    expires_in?: number;
     server_use?: string | boolean;
     client_uid?: string;
     client_key?: string;

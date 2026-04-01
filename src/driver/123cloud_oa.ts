@@ -69,6 +69,7 @@ export async function oneToken(c: Context) {
     return c.redirect("/#" + encodeCallbackData({
         access_token: result.access_token,
         refresh_token: result.refresh_token,
+        expires_in: result.expires_in,
         driver_txt: "123cloud_oa",
         server_use: true
     }));
@@ -87,5 +88,5 @@ export async function genToken(c: Context) {
     };
     return await pubRenew(
         c, driver_map[1], params,
-        "POST", "access_token", "refresh_token");
+        "POST", "access_token", "refresh_token", "error_description", "json", undefined, "expires_in");
 }
