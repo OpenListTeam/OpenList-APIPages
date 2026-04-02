@@ -5,7 +5,6 @@ import {pubLogin} from "../shares/oauthv2";
 import * as configs from "../shares/configs";
 import {pubParse} from "../shares/urlback";
 import {encodeCallbackData} from "../shares/secrets";
-import {pubRenew} from "../shares/refresh";
 
 
 const driver_map: string[] = [
@@ -13,6 +12,14 @@ const driver_map: string[] = [
     "https://open-api.123pan.com/api/v1/oauth2/access_token",
     "https://www.123pan.com/auth"
 ]
+
+function toQueryString(params: Record<string, any>): string {
+    return new URLSearchParams(
+        Object.fromEntries(Object.entries(params)
+            .filter(([_, v]) => v !== undefined)
+            .map(([k, v]) => [k, String(v)]))
+    ).toString();
+}
 
 // 登录申请 ##############################################################################
 export async function oneLogin(c: Context) {
@@ -55,11 +62,7 @@ export async function oneToken(c: Context) {
         refresh_token:  refresh_text || undefined
     }
     console.log(params);
-    const query_str = new URLSearchParams(
-        Object.fromEntries(Object.entries(params)
-            .filter(([_, v]) => v !== undefined)
-            .map(([k, v]) => [k, String(v)]))
-    ).toString();
+    const query_str = toQueryString(params);
     const result =  await pubLogin(
         c, "", `${driver_map[1]}?${query_str}`,
         false, "POST", "json");
@@ -69,6 +72,7 @@ export async function oneToken(c: Context) {
     return c.redirect("/#" + encodeCallbackData({
         access_token: result.access_token,
         refresh_token: result.refresh_token,
+        expires_in: result.expires_in,
         driver_txt: "123cloud_oa",
         server_use: true
     }));
@@ -78,14 +82,23 @@ export async function oneToken(c: Context) {
 export async function genToken(c: Context) {
     const refresh_text: string | undefined = c.req.query('refresh_ui');
     if (!refresh_text) return c.json({text: "缺少刷新令牌"}, 500);
-    const params: Record<string, string> = {
+    const params: Record<string, any> = {
         client_id: c.env.cloud123_uid,
         client_secret: c.env.cloud123_key,
         grant_type: "refresh_token",
         redirect_uri: c.env.cloud123_url,
         refresh_token: refresh_text
     };
-    return await pubRenew(
-        c, driver_map[1], params,
-        "POST", "access_token", "refresh_token");
+    const result = await pubLogin(
+        c, "", `${driver_map[1]}?${toQueryString(params)}`,
+        false, "POST", "json");
+    if (!result || !result.access_token)
+        return c.json({text: result?.error_description || "无法获取AccessToken"}, 500);
+    const result_data: Record<string, any> = {
+        refresh_token: result.refresh_token || refresh_text,
+        access_token: result.access_token,
+    };
+    if (result.expires_in !== undefined && result.expires_in !== null && result.expires_in !== "")
+        result_data.expires_in = result.expires_in;
+    return c.json(result_data, 200);
 }
