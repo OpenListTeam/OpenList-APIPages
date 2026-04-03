@@ -3,6 +3,7 @@ import * as oneui from './driver/onedrive_oa';
 import * as aliui from './driver/alicloud_oa';
 import * as aliqr from './driver/alicloud_cs';
 import * as ui115 from './driver/115cloud_oa';
+import * as qr115 from './driver/115cloud_qr';
 import * as ui123 from './driver/123cloud_oa';
 import * as baidu from './driver/baiduyun_oa';
 import * as goapi from './driver/googleui_oa';
@@ -19,12 +20,19 @@ export type Bindings = {
     alicloud_uid: string, alicloud_key: string,
     baiduyun_uid: string, baiduyun_key: string,
     cloud115_uid: string, cloud115_key: string,
+    cloud123_uid: string, cloud123_key: string,
     googleui_uid: string, googleui_key: string,
     yandexui_uid: string, yandexui_key: string,
     dropboxs_uid: string, dropboxs_key: string,
+    cloud123_url: string,
 }
 
 export const app = new Hono<{ Bindings: Bindings }>()
+
+// 媒体库应用页面 ########################################################################
+app.get('/app', async (c) => {
+    return c.redirect('/index.html');
+})
 
 // 登录申请 ##############################################################################
 app.get('/dropboxs/requests', async (c) => {
@@ -119,6 +127,14 @@ app.get('/115cloud/requests', async (c: Context) => {
 // 令牌申请 ##############################################################################
 app.get('/115cloud/callback', async (c: Context) => {
     return ui115.oneToken(c);
+});
+
+app.get('/115cloud_qr/get_qr', (c: Context) => { // In fact, we should remove all `async` in this file.
+    return qr115.getQRCode(c);
+});
+
+app.post('/115cloud_qr/check_status', (c: Context) => {
+    return qr115.getTokenStatus(c);
 });
 
 // 令牌刷新 ##############################################################################

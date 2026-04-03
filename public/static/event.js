@@ -34,12 +34,14 @@ function onSelect() {
     // 阿里云盘扫码登录v2不需要客户端ID、应用机密和回调地址 ================
     if (driver_txt_input.value === "alicloud_cs"
         || driver_txt_input.value === "alicloud_tv"
+        || driver_txt_input.value === "115cloud_qr"
     ) {
         // 隐藏整个字段容器
         clientIdContainer.style.display = 'none';
         appSecretContainer.style.display = 'none';
         serverUseContainer.style.display = 'none';
         callbackContainer.style.display = 'none';
+        // 这些驱动使用服务器端配置，强制启用 server_use
         server_use_input.checked = true;
     } else {
         clientIdContainer.style.display = 'block';
@@ -72,14 +74,19 @@ function onSelect() {
     // }
     // 禁用部分驱动使用官方参数 ===========================================
     if (driver_txt_input.value === "baiduyun_ob" ||
-        driver_txt_input.value === "123cloud_go" ||
         driver_txt_input.value === "onedrive_cn" ||
         driver_txt_input.value === "onedrive_us" ||
         driver_txt_input.value === "onedrive_de" ||
         driver_txt_input.value === "alicloud_cs" ||
+        driver_txt_input.value === "123cloud_go" ||
         driver_txt_input.value === "dropboxs_go"
     ) {
         server_use_input.checked = false;
+        server_use_input.disabled = true;
+    }
+    // 部分驱动强制使用官方参数 =============================================
+    if (driver_txt_input.value === "123cloud_oa") {
+        server_use_input.checked = true;
         server_use_input.disabled = true;
     }
     // 检查是否选中服务器处理 ===============================================

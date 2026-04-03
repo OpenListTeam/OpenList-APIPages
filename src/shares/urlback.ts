@@ -13,7 +13,7 @@ export interface Results {
 
 export async function pubParse(c: Context,
                                Client: configs.Clients,
-                               Params: Record<string, string>,
+                               Params: Record<string, any>,
                                APIUrl: string = "/api/login",
                                Method: string = "GET",
                                error_name: string = "error_description",

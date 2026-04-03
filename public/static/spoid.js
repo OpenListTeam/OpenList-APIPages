@@ -64,7 +64,7 @@ function getWebdav() {
 
 
 // 获取站点ID
-function getSiteID() {
+function getSiteID(server_use_input = false) {
     const siteUrl = document.getElementById("sharepoint-url").value.trim();
     const access_token = document.getElementById("access-token").value.trim();
     const refresh_token = document.getElementById("refresh-token").value.trim();
@@ -92,21 +92,19 @@ function getSiteID() {
         DEFAULT: "请求发生错误"
     };
 
-    // 验证
-    if (!client_uid || !client_key) {
-        idElement.value = ERROR_MESSAGES.MISSING_CREDENTIALS;
+    // OneDrive 类型校验：仅允许 OneDrive 相关驱动执行站点 ID 查询
+    if (!site_type.includes("onedrive")) {
+        idElement.value = ERROR_MESSAGES.NOT_SUPPORTED;
         return;
     }
-    if (!access_token || !refresh_token) {
+
+    // 验证访问令牌和站点 URL
+    if (!access_token) {
         idElement.value = ERROR_MESSAGES.MISSING_TOKENS;
         return;
     }
     if (!siteUrl) {
         idElement.value = ERROR_MESSAGES.MISSING_URL;
-        return;
-    }
-    if (!site_type.includes("onedrive")) {
-        idElement.value = ERROR_MESSAGES.NOT_SUPPORTED;
         return;
     }
     if (!GATEWAYS[site_type]) {

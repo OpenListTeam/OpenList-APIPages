@@ -1,7 +1,7 @@
 {
   "name": "cf-worker-api",
   "scripts": {
-    "dev-js": "tsx watch src/basic.ts",
+    "dev-js": "tsx watch --include \"public/**\" src/basic.ts",
     "build-js": "webpack --mode production",
     "deploy-js": "node dist/bundle.js",
     "dev-cf": "wrangler dev",
