@@ -13,11 +13,21 @@ export async function Requests(c: Context,
         // 请求参数 =====================================================================
         let parma_str: string;
         const parma_url = new URL(APIUrl);
+        const getContentType = (headers: Record<string, string> | undefined) => {
+            if (!headers) return "";
+            const matched = Object.entries(headers).find(([k]) =>
+                k.toLowerCase() === "content-type");
+            return matched ? matched[1].toLowerCase() : "";
+        };
         if (typeof Params !== "string") {
             const params_map = Object.fromEntries(
                 Object.entries(Params).map(([k, v]) => [k, String(v ?? '')])
             );
-            parma_str = new URLSearchParams(params_map).toString();
+            const is_json_request = Method !== "GET" &&
+                getContentType(Header).includes("application/json");
+            parma_str = is_json_request
+                ? JSON.stringify(Params)
+                : new URLSearchParams(params_map).toString();
             Object.keys(Params).forEach(key => {
                 parma_url.searchParams.append(key, Params[key]);
             });
