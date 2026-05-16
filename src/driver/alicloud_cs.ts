@@ -77,7 +77,7 @@ class AlipanQRLogin {
         });
     }
 
-    private supportsHttp2(url: string): boolean {
+    private mayUseHttp2(url: string): boolean {
         try {
             const parsedUrl = new URL(url);
             return parsedUrl.protocol === 'https:';
@@ -100,13 +100,8 @@ class AlipanQRLogin {
             'Origin': 'https://passport.alipan.com'
         };
 
-        if (this.supportsHttp2(targetUrl)) {
+        if (this.mayUseHttp2(targetUrl)) {
             delete headers.Connection;
-            delete headers.Upgrade;
-            delete headers['Proxy-Connection'];
-            delete headers['Keep-Alive'];
-            delete headers['Transfer-Encoding'];
-            delete headers['HTTP2-Settings'];
         }
 
         return headers;
