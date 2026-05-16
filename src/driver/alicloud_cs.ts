@@ -82,6 +82,7 @@ class AlipanQRLogin {
             const parsedUrl = new URL(url);
             return parsedUrl.protocol === 'https:';
         } catch {
+            // URL 无法解析时按非 HTTPS 处理，避免误判为 H2 路径
             return false;
         }
     }
@@ -99,6 +100,7 @@ class AlipanQRLogin {
             'Origin': 'https://passport.alipan.com'
         };
 
+        // Connection 是 hop-by-hop 头，在 HTTP/2 路径中不应发送（RFC8441 兼容性）
         if (!this.isHttpsUrl(targetUrl)) {
             headers.Connection = 'keep-alive';
         }
