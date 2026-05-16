@@ -77,7 +77,7 @@ class AlipanQRLogin {
         });
     }
 
-    private mayUseHttp2(url: string): boolean {
+    private isHttpsUrl(url: string): boolean {
         try {
             const parsedUrl = new URL(url);
             return parsedUrl.protocol === 'https:';
@@ -92,7 +92,6 @@ class AlipanQRLogin {
             'Accept': 'application/json, text/plain, */*',
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
             'Accept-Encoding': 'gzip, deflate, br',
-            'Connection': 'keep-alive',
             'Sec-Fetch-Dest': 'empty',
             'Sec-Fetch-Mode': 'cors',
             'Sec-Fetch-Site': 'same-site',
@@ -100,8 +99,8 @@ class AlipanQRLogin {
             'Origin': 'https://passport.alipan.com'
         };
 
-        if (this.mayUseHttp2(targetUrl)) {
-            delete headers.Connection;
+        if (!this.isHttpsUrl(targetUrl)) {
+            headers.Connection = 'keep-alive';
         }
 
         return headers;
