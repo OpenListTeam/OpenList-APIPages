@@ -77,35 +77,19 @@ class AlipanQRLogin {
         });
     }
 
-    private isHttpsUrl(url: string): boolean {
-        try {
-            const parsedUrl = new URL(url);
-            return parsedUrl.protocol === 'https:';
-        } catch {
-            // URL 无法解析时按非 HTTPS 处理，避免误判为 H2 路径
-            return false;
-        }
-    }
-
-    private getHeaders(targetUrl: string): Record<string, string> {
-        const headers: Record<string, string> = {
+    private getHeaders(): Record<string, string> {
+        return {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept': 'application/json, text/plain, */*',
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
             'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
             'Sec-Fetch-Dest': 'empty',
             'Sec-Fetch-Mode': 'cors',
             'Sec-Fetch-Site': 'same-site',
             'Referer': 'https://passport.alipan.com/',
             'Origin': 'https://passport.alipan.com'
         };
-
-        // Connection 是 hop-by-hop 头，在 HTTP/2 路径中不应发送（RFC8441 兼容性）
-        if (!this.isHttpsUrl(targetUrl)) {
-            headers.Connection = 'keep-alive';
-        }
-
-        return headers;
     }
 
     // 获取OAuth认证URL
@@ -122,7 +106,7 @@ class AlipanQRLogin {
 
             const response = await fetch(`${authUrl}?${params}`, {
                 method: 'GET',
-                headers: this.getHeaders(authUrl)
+                headers: this.getHeaders()
             });
 
             if (response.ok) {
@@ -159,7 +143,7 @@ class AlipanQRLogin {
 
             const response = await fetch(`${loginUrl}?${params}`, {
                 method: 'GET',
-                headers: this.getHeaders(loginUrl)
+                headers: this.getHeaders()
             });
 
             if (response.ok) {
@@ -206,7 +190,7 @@ class AlipanQRLogin {
             });
 
             const headers = {
-                ...this.getHeaders(qrUrl),
+                ...this.getHeaders(),
                 'X-Requested-With': 'XMLHttpRequest',
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             };
@@ -266,7 +250,7 @@ class AlipanQRLogin {
             }
 
             const headers = {
-                ...this.getHeaders(queryUrl),
+                ...this.getHeaders(),
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                 'X-Requested-With': 'XMLHttpRequest'
             };
