@@ -10,7 +10,7 @@ import {encodeCallbackData} from "../shares/secrets";
 const driver_map: string[] = [
     "https://open-api.123pan.com/api/v1/access_token",
     "https://open-api.123pan.com/api/v1/oauth2/access_token",
-    "https://www.123pan.com/auth"
+    "https://yun.123pan.com/auth"
 ]
 
 function toQueryString(params: Record<string, any>): string {
