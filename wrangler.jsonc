@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "openlist-apis-page",
+  "name": "openlist",
   "main": "src/cfapp.ts",
   "compatibility_date": "2025-05-25",
   "compatibility_flags": [
