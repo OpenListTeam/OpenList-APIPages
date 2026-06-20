@@ -7,7 +7,7 @@
     "nodejs_compat"
   ],
   "vars": {
-    "MAIN_URLS": "api.example.com",
+    "MAIN_URLS": "openlistapi.686818.xyz",
     "PROXY_API": "",
     "onedrive_uid": "*****************************",
     "onedrive_key": "*****************************",
