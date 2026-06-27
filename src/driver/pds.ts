@@ -161,10 +161,9 @@ export async function deviceToken(c: Context) {
         client_id: clientID,
     });
     if (result.access_token) {
-        const expiresIn = Number(result.expires_in || 0);
         return c.json({
             ...result,
-            expires_at: expiresIn > 0 ? Math.floor(Date.now() / 1000) + expiresIn : 0,
+            expires_at: 0,
         }, 200);
     }
     if (isPendingAuthorization(result))
@@ -187,11 +186,10 @@ export async function refreshToken(c: Context) {
         client_id: clientID,
     });
     if (!result.access_token) return c.json({text: upstreamMessage(result), raw: result}, 500);
-    const expiresIn = Number(result.expires_in || 0);
     return c.json({
         ...result,
         refresh_token: result.refresh_token || refreshToken,
-        expires_at: expiresIn > 0 ? Math.floor(Date.now() / 1000) + expiresIn : 0,
+        expires_at: 0,
     }, 200);
 }
 

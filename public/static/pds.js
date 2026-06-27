@@ -60,6 +60,7 @@ function initPDSDefaults() {
     if (!pdsValue("pds-device-name-input")) setPdsValue("pds-device-name-input", PDS_DEFAULT_DEVICE_NAME);
     if (!pdsValue("pds-token-type-input")) setPdsValue("pds-token-type-input", "Bearer");
     if (!pdsValue("pds-root-folder-id-input")) setPdsValue("pds-root-folder-id-input", "root");
+    if (!pdsValue("pds-expires-at-input")) setPdsValue("pds-expires-at-input", "0");
 }
 
 function setPdsStatus(text) {
@@ -78,12 +79,7 @@ function fillPdsToken(data) {
     if (data.access_token) setPdsValue("access-token", data.access_token);
     if (data.refresh_token) setPdsValue("refresh-token", data.refresh_token);
     if (data.token_type) setPdsValue("pds-token-type-input", data.token_type);
-    if (data.expires_at) {
-        setPdsValue("pds-expires-at-input", String(data.expires_at));
-    } else if (data.expires_in) {
-        const expiresAt = Math.floor(Date.now() / 1000) + Number(data.expires_in);
-        setPdsValue("pds-expires-at-input", String(expiresAt));
-    }
+    setPdsValue("pds-expires-at-input", "0");
 }
 
 async function startPdsLogin() {
@@ -264,7 +260,7 @@ function buildPDSConfig() {
         access_token: pdsValue("access-token"),
         refresh_token: pdsValue("refresh-token"),
         token_type: pdsValue("pds-token-type-input") || "Bearer",
-        expires_at: Number(pdsValue("pds-expires-at-input") || 0),
+        expires_at: 0,
     };
     setPdsValue("pds-config-output", JSON.stringify(config, null, 2));
 }
