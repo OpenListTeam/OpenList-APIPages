@@ -31,6 +31,40 @@ function onSelect() {
     const appSecretContainer = client_key_input.closest('.mb-3');
     const serverUseContainer = server_use_input.closest('.mb-3');
     const callbackContainer = direct_url_input.closest('.mb-3');
+    const clientIdLabel = clientIdContainer.querySelector('label');
+    const appSecretLabel = appSecretContainer.querySelector('label');
+    const callbackLabel = callbackContainer.querySelector('label');
+    const pdsViews = document.getElementById('pds-views');
+    const accessTokenInput = document.getElementById('access-token');
+    const refreshTokenInput = document.getElementById('refresh-token');
+    clientIdLabel.textContent = '客户端ID（ClientID/AppID）';
+    appSecretLabel.textContent = '应用秘钥 (AppKey/Secret)';
+    callbackLabel.textContent = '回调地址（Callback URL）';
+    pdsViews.hidden = true;
+    accessTokenInput.readOnly = true;
+    refreshTokenInput.readOnly = true;
+    accessTokenInput.setAttribute('onclick', 'autoCopy(this)');
+    refreshTokenInput.setAttribute('onclick', 'autoCopy(this)');
+    if (driver_txt_input.value === "pds_go") {
+        clientIdContainer.style.display = 'block';
+        appSecretContainer.style.display = 'block';
+        serverUseContainer.style.display = 'none';
+        secret_key_views.hidden = true;
+        callbackContainer.style.display = 'block';
+        clientIdLabel.textContent = 'PDS Domain ID';
+        appSecretLabel.textContent = 'Client ID';
+        callbackLabel.textContent = '授权链接';
+        direct_url_input.value = '';
+        pdsViews.hidden = false;
+        accessTokenInput.readOnly = false;
+        refreshTokenInput.readOnly = false;
+        accessTokenInput.removeAttribute('onclick');
+        refreshTokenInput.removeAttribute('onclick');
+        shared_all_views.hidden = true;
+        shared_btn_views.classList.remove('d-grid');
+        if (typeof initPDSDefaults === 'function') initPDSDefaults();
+        return;
+    }
     // 阿里云盘扫码登录v2不需要客户端ID、应用机密和回调地址 ================
     if (driver_txt_input.value === "alicloud_cs"
         || driver_txt_input.value === "alicloud_tv"
