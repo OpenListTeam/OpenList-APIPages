@@ -38,6 +38,7 @@ or
 ```
 docker pull ghcr.io/openlistteam/openlist_api_server:latest
 ```
+- 镜像支持多平台架构：`linux/amd64`、`linux/arm64`
 #### 启动项目
 ```
 docker run -d --name oplist-api-server \
