@@ -12,6 +12,7 @@ app.use('*', async(c, next)=>{
     c.env = {
         ...(c.env || {}),
         MAIN_URLS: process.env.MAIN_URLS || '',
+        PROXY_API: process.env.PROXY_API || '',
         baiduyun_ext: process.env.baiduyun_ext || '',
         onedrive_uid: process.env.onedrive_uid || '',
         onedrive_key: process.env.onedrive_key || '',
