@@ -3,7 +3,7 @@ function addEventListener() {
     driver_txt_input.addEventListener('change', onChange)
     // 监听切换使用官方参数情况下修改输入内容 ##################################
     server_use_input.addEventListener('change', function () {
-        onSelect()
+        onSelect(false)
     });
 }
 
@@ -16,7 +16,7 @@ function onChange(clean = true) {
     onSelect();
 }
 
-function onSelect() {
+function onSelect(showConsent = true) {
     server_use_input.disabled = false;
     client_key_input.disabled = false;
     secret_key_input.disabled = false;
@@ -105,9 +105,7 @@ function onSelect() {
         secret_key_input.disabled = false;
     }
     // Google弹出隐私政策和使用条款
-    if (driver_txt_input.value === "googleui_go") {
-        if (server_use_input.checked)
-            if (!callback_flag)
-                showGoogleConsent();
+    if (showConsent && driver_txt_input.value === "googleui_go" && !callback_flag) {
+        showGoogleConsent();
     }
 }
