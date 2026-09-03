@@ -14,6 +14,9 @@ function onChange(clean = true) {
     secret_key_input.value = "";
     client_uid_input.value = "";
     onSelect();
+    // Google弹出隐私政策和使用条款
+    if (driver_txt_input.value === "googleui_go" && !callback_flag)
+        showGoogleConsent();
 }
 
 function onSelect() {
@@ -103,11 +106,5 @@ function onSelect() {
         client_uid_input.disabled = false;
         client_key_input.disabled = false;
         secret_key_input.disabled = false;
-    }
-    // Google弹出隐私政策和使用条款
-    if (driver_txt_input.value === "googleui_go") {
-        if (server_use_input.checked)
-            if (!callback_flag)
-                showGoogleConsent();
     }
 }
