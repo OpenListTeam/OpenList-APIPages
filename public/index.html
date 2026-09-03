@@ -39,6 +39,7 @@
             <option value="dropboxs_go">Drop Box (OAuth2) 跳转登录</option>
             <option value="googleui_go">GoogleDrive Login (OAuth2)</option>
             <option value="yandexui_go">YandexDrive Login (OAuth2)</option>
+            <option value="pds_go">Aliyun PDS (OAuth2) 跳转登录</option>
         </select>
     </div>
 
@@ -83,6 +84,65 @@
     <div class="mb-3">
         <label for="refresh-token" class="form-label">刷新令牌（Refresh Token）</label>
         <textarea id="refresh-token" class="form-control" rows="3" readonly onclick="autoCopy(this)"></textarea>
+    </div>
+
+    <div id="pds-views" hidden>
+        <div class="mb-3">
+            <label for="pds-device-name-input" class="form-label">Device Name</label>
+            <input type="text" id="pds-device-name-input" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="pds-user-code-output" class="form-label">User Code</label>
+            <input type="text" id="pds-user-code-output" class="form-control" readonly onclick="autoCopy(this)">
+        </div>
+
+        <div class="d-grid gap-2 mb-3">
+            <button class="btn btn-primary" id="pds-open-auth-button" onclick="openPdsAuthURL()" disabled>打开授权页面</button>
+        </div>
+
+        <div class="mb-3">
+            <label for="pds-status-output" class="form-label">授权状态</label>
+            <input type="text" id="pds-status-output" class="form-control" readonly onclick="autoCopy(this)">
+        </div>
+
+        <div class="mb-3">
+            <label for="pds-token-type-input" class="form-label">Token Type</label>
+            <input type="text" id="pds-token-type-input" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="pds-expires-at-input" class="form-label">Expires At</label>
+            <input type="number" id="pds-expires-at-input" class="form-control">
+        </div>
+
+        <div class="d-grid gap-2 mb-3">
+            <button class="btn btn-primary" onclick="loadPdsDrives()">列出 Drive</button>
+        </div>
+
+        <div class="mb-3">
+            <label for="pds-drive-select" class="form-label">Drive</label>
+            <select id="pds-drive-select" class="form-select"></select>
+        </div>
+
+        <div class="mb-3">
+            <label for="pds-drive-id-input" class="form-label">Drive ID</label>
+            <input type="text" id="pds-drive-id-input" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="pds-root-folder-id-input" class="form-label">Root Folder ID</label>
+            <input type="text" id="pds-root-folder-id-input" class="form-control">
+        </div>
+
+        <div class="d-grid gap-2 mb-3">
+            <button class="btn btn-primary" onclick="buildPDSConfig()">生成配置</button>
+        </div>
+
+        <div class="mb-3">
+            <label for="pds-config-output" class="form-label">OpenList PDS 配置</label>
+            <textarea id="pds-config-output" class="form-control" rows="12" readonly onclick="autoCopy(this)"></textarea>
+        </div>
     </div>
     <div id="sharepoint-views">
         <div class="mb-3" id="sharepoint-url-view">
@@ -173,6 +233,7 @@
 </div>
 
 <script src="/static/event.js"></script>
+<script src="/static/pds.js"></script>
 <script src="/static/login.js"></script>
 <script src="/static/token.js"></script>
 <script src="/static/theme.js"></script>

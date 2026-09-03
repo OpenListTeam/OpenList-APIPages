@@ -15,6 +15,11 @@ async function getLogin(refresh = false) {
     const qrModalTitle = document.getElementById('qr-modal-title');
     let driver_pre = driver_txt.split("_")[0]
     let check_flag = true;
+    if (driver_txt === "pds_go") {
+        if (refresh) await refreshPdsToken();
+        else await startPdsLogin();
+        return;
+    }
     // 阿里云盘扫码v2直接调用专用API，不需要构建传统的requests路径
     if (driver_txt === "alicloud_cs" && !refresh) {
         qrModalTitle.textContent = '阿里云盘扫码登录v2';

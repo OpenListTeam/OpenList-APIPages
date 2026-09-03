@@ -10,6 +10,7 @@ import * as goapi from './driver/googleui_oa';
 import * as yanui from './driver/yandexui_oa';
 import * as drops from './driver/dropboxs_oa';
 import * as quark from './driver/quarkpan_oa';
+import * as pds from './driver/pds';
 
 export type Bindings = {
     // 基本配置 ================================
@@ -32,6 +33,26 @@ export const app = new Hono<{ Bindings: Bindings }>()
 // 媒体库应用页面 ########################################################################
 app.get('/app', async (c) => {
     return c.redirect('/index.html');
+})
+
+app.get('/pds', async (c: Context) => {
+    return pds.page(c);
+})
+
+app.post('/pds/device_authorization', async (c: Context) => {
+    return pds.deviceAuthorization(c);
+})
+
+app.post('/pds/device_token', async (c: Context) => {
+    return pds.deviceToken(c);
+})
+
+app.post('/pds/refresh', async (c: Context) => {
+    return pds.refreshToken(c);
+})
+
+app.post('/pds/drives', async (c: Context) => {
+    return pds.drives(c);
 })
 
 // 登录申请 ##############################################################################
