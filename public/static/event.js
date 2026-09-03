@@ -15,8 +15,9 @@ function onChange(clean = true) {
     client_uid_input.value = "";
     onSelect();
     // Google弹出隐私政策和使用条款
-    if (driver_txt_input.value === "googleui_go" && !callback_flag)
+    if (driver_txt_input.value === "googleui_go" && !callback_flag) {
         showGoogleConsent();
+    }
 }
 
 function onSelect() {
