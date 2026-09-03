@@ -53,7 +53,7 @@ export async function oneToken(c: Context) {
     let login_data, client_uid, client_key, random_key, server_use;
     let driver_txt, params_all, random_uid, server_url: string = driver_map[1];
     try { // 请求参数 ====================================================================
-        if (c.env.PROXY_API.length > 3 && c.env.PROXY_API !== "null"
+        if (c.env.PROXY_API && c.env.PROXY_API.length > 3 && c.env.PROXY_API !== "null"
             && c.env.PROXY_API !== "none" && c.env.PROXY_API !== "false")
             server_url = "https://" + c.env.PROXY_API + "/token";
         login_data = <string>c.req.query('code');
@@ -145,7 +145,7 @@ export async function genToken(c: Context) {
     const clients_info: configs.Clients | undefined = configs.getInfo(c);
     const refresh_text: string | undefined = c.req.query('refresh_ui');
     let server_url: string = driver_map[1];
-    if (c.env.PROXY_API.length > 3 && c.env.PROXY_API !== "null"
+    if (c.env.PROXY_API && c.env.PROXY_API.length > 3 && c.env.PROXY_API !== "null"
         && c.env.PROXY_API !== "none" && c.env.PROXY_API !== "false")
         server_url = "https://" + c.env.PROXY_API + "/token";
     if (!clients_info) return c.json({text: "传入参数缺少"}, 500);
