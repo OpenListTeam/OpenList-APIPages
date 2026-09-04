@@ -39,10 +39,24 @@ async function buildLoginUrl(payload: LoginPayload, refresh: boolean): Promise<s
   return url
 }
 
+/** 从后端错误响应中提取可读错误信息（后端返回 { text: "..." }，代理失败则返回原文） */
+async function readErrorMessage(res: Response, fallback: string): Promise<string> {
+  const raw = await res.text().catch(() => '')
+  if (!raw) return fallback
+  try {
+    const body = JSON.parse(raw)
+    if (body && typeof body.text === 'string' && body.text) return body.text
+    if (body && typeof body.message === 'string' && body.message) return body.message
+  } catch {
+    // 非 JSON 响应（如代理错误信息），直接返回原文
+  }
+  return raw.slice(0, 200)
+}
+
 export async function requestLogin(payload: LoginPayload): Promise<LoginResult> {
   const url = await buildLoginUrl(payload, false)
   const res = await fetch(url, { method: 'GET', headers: { 'Content-Type': 'application/json' } })
-  if (res.status !== 200) throw new HttpError(res.statusText, res.status)
+  if (res.status !== 200) throw new HttpError(await readErrorMessage(res, res.statusText), res.status)
 
   const data = await res.json()
   const driver = payload.driver
@@ -64,7 +78,7 @@ export async function requestLogin(payload: LoginPayload): Promise<LoginResult> 
 export async function requestRefresh(payload: LoginPayload): Promise<TokenPair> {
   const url = await buildLoginUrl(payload, true)
   const res = await fetch(url, { method: 'GET', headers: { 'Content-Type': 'application/json' } })
-  if (res.status !== 200) throw new HttpError(res.statusText, res.status)
+  if (res.status !== 200) throw new HttpError(await readErrorMessage(res, res.statusText), res.status)
   const data = await res.json()
   return { accessToken: data.access_token, refreshToken: data.refresh_token }
 }
