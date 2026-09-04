@@ -281,6 +281,23 @@ body {
   margin-bottom: 18px;
 }
 
+/* 修复移动端下拉菜单滑动时页面跟着滚动的问题 */
+.ant-select-dropdown {
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ant-select-dropdown .rc-virtual-list-holder {
+  overscroll-behavior: contain;
+}
+
+/* 阻止下拉菜单打开时底层页面滚动 */
+body.ant-scrolling-effect {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
 .action-btn {
   min-width: 140px;
   font-weight: 600;

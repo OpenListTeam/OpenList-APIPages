@@ -544,6 +544,8 @@ export default function TokenPage() {
                   showSearch
                   optionFilterProp="label"
                   className="driver-select"
+                  getPopupContainer={(trigger) => trigger.parentElement || document.body}
+                  listHeight={300}
                 />
 
                 {!pds && (
@@ -767,6 +769,8 @@ export default function TokenPage() {
                             style={{ width: '100%' }}
                             allowClear
                             placeholder={t('pds.drivePlaceholder')}
+                            getPopupContainer={(trigger) => trigger.parentElement || document.body}
+                            listHeight={300}
                           />
                         </div>
                       </Col>
