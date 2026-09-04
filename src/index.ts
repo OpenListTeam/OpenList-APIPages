@@ -13,6 +13,8 @@ import * as quark from './driver/quarkpan_oa';
 import * as pds from './driver/pds';
 
 export type Bindings = {
+    // 静态资源绑定 ================================
+    ASSETS: Fetcher,
     // 基本配置 ================================
     MAIN_URLS: string, PROXY_API: string | null,
     // 密钥参数 ================================

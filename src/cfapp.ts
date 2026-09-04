@@ -1,8 +1,9 @@
-import {serveStatic} from 'hono/cloudflare-workers' // @ts-ignore
-import manifest from '__STATIC_CONTENT_MANIFEST'
 import * as index from './index'
 
-index.app.use("*", serveStatic({manifest: manifest, root: "./"}));
+// 未匹配到 API 路由时，回退到静态资源（ASSETS 绑定）
+index.app.notFound(async (c) => {
+    return c.env.ASSETS.fetch(c.req.raw)
+})
 
 
 export default index.app
