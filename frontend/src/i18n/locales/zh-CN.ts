@@ -38,7 +38,7 @@ export default {
       alicloud_tv: '阿里云盘 - 扫码登录 (TV 客户端)',
       alicloud_cs: '阿里云盘 - 扫码登录 (Web版页面)',
       baiduyun_go: '百度网盘 - 验证登录 (OAuth App)',
-      baiduyun_ob: '百度网盘 - 验证登录 (OAuth App)',
+      baiduyun_ob: '百度网盘 - 手动登录 (OAuth App)',
       quarkyun_fn: '夸克网盘 - 验证登录 (OAuth App)',
       '115cloud_go': '115 网盘 - 验证登录 (OAuth App)',
       '115cloud_qr': '115 网盘 - 扫码登录 (OAuth App)',

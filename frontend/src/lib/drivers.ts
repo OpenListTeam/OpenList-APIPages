@@ -25,9 +25,9 @@ export const DRIVERS: DriverOption[] = [
   { value: '115cloud_qr', i18nKey: 'driver.options.115cloud_qr' },
   { value: '123cloud_go', i18nKey: 'driver.options.123cloud_go' },
   { value: '123cloud_oa', i18nKey: 'driver.options.123cloud_oa' },
-  { value: 'dropboxs_go', i18nKey: 'driver.options.dropboxs_go' },
   { value: 'googleui_go', i18nKey: 'driver.options.googleui_go' },
   { value: 'yandexui_go', i18nKey: 'driver.options.yandexui_go' },
+  { value: 'dropboxs_go', i18nKey: 'driver.options.dropboxs_go' },
   { value: 'pds_go', i18nKey: 'driver.options.pds_go' },
 ]
 
