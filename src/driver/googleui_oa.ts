@@ -92,19 +92,29 @@ export async function oneToken(c: Context) {
         const paramsString = new URLSearchParams(params_all).toString();
         let try_time: number = 5;
         let response: Response | null = null;
+        let last_err: string = "";
         while (try_time > 0) {
             try {
                 response = await fetch(server_url, {
                     method: 'POST', body: paramsString,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded',},
                 });
-                break;
+                console.log(`[googleui] token 请求 server_url=${server_url} status=${response.status} 剩余重试=${try_time - 1}`);
+                if (response.status === 200) break;
+                // 非 200：读取响应体用于日志并继续重试（例如 Cloudflare 522 等代理/网络错误）
+                last_err = await response.text();
+                console.log(`[googleui] token 响应异常 status=${response.status} body=${last_err.slice(0, 300)}`);
+                try_time -= 1;
             } catch (error) {
+                console.log(`[googleui] token fetch 异常 error=${error} 剩余重试=${try_time - 1}`);
+                last_err = String(error);
                 try_time -= 1;
             }
         }
-        if (!try_time || !response) return c.redirect(
-            showErr("多次尝试获取Token失败"));
+        if (!response || response.status !== 200) {
+            console.log(`[googleui] token 多次尝试后仍失败 last_err=${last_err.slice(0, 200)}`);
+            return c.redirect(showErr(last_err || "多次尝试获取Token失败", client_uid, client_key));
+        }
         if (server_use == "false") {
             local.deleteCookie(c, 'client_uid');
             local.deleteCookie(c, 'client_key');
@@ -112,7 +122,15 @@ export async function oneToken(c: Context) {
         local.deleteCookie(c, 'random_key');
         local.deleteCookie(c, 'driver_txt');
         local.deleteCookie(c, 'server_use');
-        let json: Record<string, any> = await response.json();
+        // 先读取文本再安全解析，避免 body 非 JSON 时 response.json() 抛 SyntaxError
+        const rawText: string = await response.text();
+        let json: Record<string, any> = {};
+        try {
+            json = JSON.parse(rawText);
+        } catch (e) {
+            console.log(`[googleui] token 响应非 JSON status=${response.status} body=${rawText.slice(0, 300)}`);
+            return c.redirect(showErr(`HTTP ${response.status}: ${rawText.slice(0, 200)}`, client_uid, client_key));
+        }
         if (json.token_type == "Bearer") {
             const callbackData: Secrets = {
                 access_token: json.access_token,
@@ -124,8 +142,12 @@ export async function oneToken(c: Context) {
             };
             return c.redirect("/#" + encodeCallbackData(callbackData));
         }
-        return c.redirect(showErr(json.message, client_uid, client_key));
+        // Google 错误响应通常形如 { error: "...", error_description: "..." }
+        const errMsg = json.error_description || json.error || json.message || "未知错误";
+        console.log(`[googleui] token 授权失败 error=${errMsg}`);
+        return c.redirect(showErr(errMsg, client_uid, client_key));
     } catch (error) {
+        console.log(`[googleui] token 处理异常 error=${error}`);
         return c.redirect(showErr(<string>error, client_uid, client_key));
     }
 }
