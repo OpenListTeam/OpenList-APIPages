@@ -149,6 +149,10 @@ export default {
     expiredHint: '二维码可能已过期，建议刷新重新生成',
     sessionInvalid: '会话验证失败，请重新生成二维码',
   },
+  cookie: {
+    message: '本工具使用必要的 Cookie 来保存登录状态与语言偏好，仅存储于浏览器本地，不会用于追踪或广告。',
+    accept: '我知道了',
+  },
   consent: {
     title: '隐私政策和使用条款',
     intro: '请仔细阅读并理解 OpenList 应用隐私政策和使用条款。要继续操作，需要同意获取您谷歌账号以下必要权限：',
@@ -161,6 +165,7 @@ export default {
   },
   footer: {
     privacyNote: '所有用户信息仅以 Cookie 形式存储于浏览器本地',
+    rights: '保留所有权利',
     opensource: '开源于',
     by: '由',
     sponsoredBy: '本工具国内 CDN 加速及安全防护由',

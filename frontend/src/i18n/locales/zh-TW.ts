@@ -147,6 +147,10 @@ export default {
     expiredHint: 'QR Code 可能已過期，建議重新整理',
     sessionInvalid: '會話驗證失敗，請重新產生 QR Code',
   },
+  cookie: {
+    message: '本工具使用必要的 Cookie 來儲存登入狀態與語言偏好，僅儲存於您的瀏覽器本地，不會用於追蹤或廣告。',
+    accept: '我知道了',
+  },
   consent: {
     title: '隱私政策和使用條款',
     intro: '請仔細閱讀並理解 OpenList 應用隱私政策和使用條款。若要繼續操作，需同意取得您 Google 帳號以下必要權限：',
@@ -159,6 +163,7 @@ export default {
   },
   footer: {
     privacyNote: '所有使用者資訊僅以 Cookie 形式儲存於瀏覽器本地',
+    rights: '保留所有權利',
     opensource: '開源於',
     by: '由',
     sponsoredBy: '本工具國內 CDN 加速及安全防護由',

@@ -402,7 +402,32 @@ body {
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-footer__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.app-footer__nav a {
+  color: #0ea5e9;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.app-footer__nav a:hover {
+  opacity: 0.75;
+}
+
+.app-footer__dot {
+  color: rgba(100, 116, 139, 0.6);
+  user-select: none;
 }
 
 .app-footer__note {
@@ -425,6 +450,95 @@ body {
 .app-footer__sponsor-logo {
   height: 18px;
   vertical-align: middle;
+}
+
+.app-footer__divider {
+  width: min(420px, 80vw);
+  margin: 12px 0 4px;
+  border-color: rgba(100, 116, 139, 0.12);
+}
+
+.app-footer__copyright {
+  font-size: 13px;
+  color: rgba(100, 116, 139, 0.75);
+}
+
+/* Cookie 告知横幅 */
+.cookie-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(94vw, 680px);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(14px);
+  animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.cookie-banner--light {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.cookie-banner--dark {
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.cookie-banner__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  font-size: 20px;
+  color: #0ea5e9;
+  background: rgba(14, 165, 233, 0.12);
+}
+
+.cookie-banner__text {
+  flex: 1;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+.cookie-banner--dark .cookie-banner__text {
+  color: #cbd5e1;
+}
+
+.cookie-banner__text a {
+  color: #0ea5e9;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cookie-banner__text a:hover {
+  text-decoration: underline;
+}
+
+.cookie-banner__btn {
+  flex-shrink: 0;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .cookie-banner {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .cookie-banner__btn {
+    width: 100%;
+  }
 }
 
 /* 响应式 */

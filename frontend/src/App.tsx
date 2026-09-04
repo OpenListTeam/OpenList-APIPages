@@ -7,6 +7,7 @@ import jaJP from 'antd/locale/ja_JP'
 import koKR from 'antd/locale/ko_KR'
 import { ThemeProvider, useTheme } from './theme/ThemeContext'
 import TokenPage from './pages/TokenPage'
+import CookieConsent from './components/CookieConsent'
 import i18n from './i18n'
 
 const ANT_LOCALES: Record<string, typeof zhCN> = {
@@ -59,6 +60,7 @@ function AppInner() {
     >
       <AntdApp>
         <TokenPage />
+        <CookieConsent />
       </AntdApp>
     </ConfigProvider>
   )

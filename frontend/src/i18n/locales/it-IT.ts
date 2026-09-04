@@ -147,6 +147,10 @@ export default {
     expiredHint: 'Il codice QR potrebbe essere scaduto, aggiorna',
     sessionInvalid: 'Verifica della sessione non riuscita, rigenera',
   },
+  cookie: {
+    message: 'Questo strumento utilizza solo cookie essenziali per salvare il tuo stato di accesso e la preferenza di lingua. Vengono memorizzati localmente nel tuo browser e non vengono utilizzati per tracciamento o pubblicità.',
+    accept: 'Ho capito',
+  },
   consent: {
     title: 'Informativa sulla privacy e termini',
     intro: "Leggi e comprendi l'informativa sulla privacy e i termini di servizio di OpenList. Per continuare, devi concedere le seguenti autorizzazioni necessarie per il tuo account Google:",
@@ -159,6 +163,7 @@ export default {
   },
   footer: {
     privacyNote: 'Tutte le informazioni utente sono memorizzate localmente nel browser come cookie',
+    rights: 'Tutti i diritti riservati',
     opensource: 'Open source su',
     by: 'da',
     sponsoredBy: "L'accelerazione CDN e la sicurezza del sito cinese sono sponsorizzate da",

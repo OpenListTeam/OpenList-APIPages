@@ -147,6 +147,10 @@ export default {
     expiredHint: 'QR コードの有効期限が切れている可能性があります',
     sessionInvalid: 'セッション検証に失敗しました。再生成してください',
   },
+  cookie: {
+    message: 'このツールは、ログイン状態と言語設定を保存するために必要な Cookie のみを使用します。Cookie はブラウザ内にのみ保存され、追跡や広告には使用されません。',
+    accept: '了解しました',
+  },
   consent: {
     title: 'プライバシーポリシーと利用規約',
     intro: 'OpenList のプライバシーポリシーと利用規約をお読みください。続行するには、Google アカウントの以下の権限が必要です：',
@@ -159,6 +163,7 @@ export default {
   },
   footer: {
     privacyNote: 'すべてのユーザー情報は Cookie としてブラウザ内にのみ保存されます',
+    rights: 'すべての権利を留保します',
     opensource: 'オープンソース:',
     by: 'by',
     sponsoredBy: '中国サイトの CDN 高速化とセキュリティは',

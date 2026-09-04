@@ -147,6 +147,10 @@ export default {
     expiredHint: 'QR 코드가 만료되었을 수 있습니다. 새로고침하세요',
     sessionInvalid: '세션 검증 실패. 다시 생성하세요',
   },
+  cookie: {
+    message: '이 도구는 로그인 상태와 언어 설정을 저장하기 위해 필수 쿠키만 사용합니다. 쿠키는 브라우저에만 저장되며 추적이나 광고에 사용되지 않습니다.',
+    accept: '확인했습니다',
+  },
   consent: {
     title: '개인정보 보호정책 및 이용약관',
     intro: 'OpenList 개인정보 보호정책과 이용약관을 읽고 이해하세요. 계속하려면 Google 계정의 다음 권한이 필요합니다:',
@@ -159,6 +163,7 @@ export default {
   },
   footer: {
     privacyNote: '모든 사용자 정보는 브라우저에 쿠키로만 저장됩니다',
+    rights: '모든 권리 보유',
     opensource: '오픈소스:',
     by: 'by',
     sponsoredBy: '중국 사이트 CDN 가속 및 보안은',

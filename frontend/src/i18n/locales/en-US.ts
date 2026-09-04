@@ -149,6 +149,10 @@ export default {
     expiredHint: 'QR code may have expired, please refresh',
     sessionInvalid: 'Session verification failed, please regenerate',
   },
+  cookie: {
+    message: 'This tool uses only essential cookies to save your login state and language preference. They are stored locally in your browser and are not used for tracking or advertising.',
+    accept: 'Got it',
+  },
   consent: {
     title: 'Privacy Policy & Terms',
     intro: 'Please read and understand the OpenList privacy policy and terms of service. To continue, you must grant the following required permissions for your Google account:',
@@ -161,6 +165,7 @@ export default {
   },
   footer: {
     privacyNote: 'All user information is stored locally in your browser as cookies',
+    rights: 'All rights reserved',
     opensource: 'Open sourced on',
     by: 'by',
     sponsoredBy: 'CDN acceleration & security for the China site is sponsored by',
