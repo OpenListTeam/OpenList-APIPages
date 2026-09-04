@@ -307,6 +307,13 @@ body {
   background: transparent;
 }
 
+/* 让 CopyableField 与 antd 输入框尺寸统一 */
+.copyable-field--large textarea.ant-input {
+  font-size: 16px;
+  padding: 6.5px 11px;
+  line-height: 1.5715;
+}
+
 /* 扫码弹窗 */
 .qr-modal-body {
   display: flex;

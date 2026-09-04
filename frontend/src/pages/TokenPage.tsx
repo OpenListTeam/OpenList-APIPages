@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { App, Button, Card, Col, Divider, Input, Modal, Row, Select, Space, Switch, Typography } from 'antd'
-import { KeyOutlined, LoginOutlined, ReloadOutlined, ThunderboltOutlined } from '@ant-design/icons'
+import { EyeInvisibleOutlined, EyeOutlined, KeyOutlined, LoginOutlined, ReloadOutlined, ThunderboltOutlined } from '@ant-design/icons'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CopyableField from '../components/CopyableField'
@@ -81,6 +81,7 @@ export default function TokenPage() {
   const [pdsDriveId, setPdsDriveId] = useState('')
   const [pdsDrives, setPdsDrives] = useState<PdsDrive[]>([])
   const [pdsConfig, setPdsConfig] = useState('')
+  const [hideTokens, setHideTokens] = useState(false)
   const pdsPollTimerRef = useRef<number | null>(null)
   const pdsPollingRef = useRef(false)
   const pdsPollExpiresAtRef = useRef(0)
@@ -121,9 +122,8 @@ export default function TokenPage() {
         setSecretKey('SVT6xpMdLcx6v4aCR4wT8BBOTbzFO8LM')
       }
 
-      // 阿里云 PDS 初始化默认值
+      // 阿里云 PDS 初始化默认值（Client ID 留空，后端自动使用默认值）
       if (value === 'pds_go') {
-        setClientKey(PDS_DEFAULT_CLIENT_ID)
         setPdsDeviceName(PDS_DEFAULT_DEVICE_NAME)
         setPdsTokenType('Bearer')
         setPdsRootFolderId('root')
@@ -650,21 +650,39 @@ export default function TokenPage() {
                   <Typography.Title level={4} className="card-heading__title">
                     {t('credential.tokenTitle')}
                   </Typography.Title>
+                  {pds && (
+                    <Button
+                      type="text"
+                      size="small"
+                      icon={hideTokens ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+                      onClick={() => setHideTokens((v) => !v)}
+                      title={hideTokens ? t('credential.showTokens') : t('credential.hideTokens')}
+                      style={{ marginLeft: 'auto' }}
+                    />
+                  )}
                 </div>
 
-                {!pds && (
-                  <>
-                    <div className="field">
-                      <label className="field-label">{t('credential.accessToken')}</label>
-                      <CopyableField value={accessToken} placeholder={t('credential.empty')} />
-                    </div>
+                <div className="field">
+                  <label className="field-label">{t('credential.accessToken')}</label>
+                  <CopyableField
+                    value={accessToken}
+                    placeholder={t('credential.empty')}
+                    readOnly={!pds}
+                    onChange={pds ? setAccessToken : undefined}
+                    masked={pds && hideTokens}
+                  />
+                </div>
 
-                    <div className="field">
-                      <label className="field-label">{t('credential.refreshTokenLabel')}</label>
-                      <CopyableField value={refreshToken} placeholder={t('credential.empty')} />
-                    </div>
-                  </>
-                )}
+                <div className="field">
+                  <label className="field-label">{t('credential.refreshTokenLabel')}</label>
+                  <CopyableField
+                    value={refreshToken}
+                    placeholder={t('credential.empty')}
+                    readOnly={!pds}
+                    onChange={pds ? setRefreshToken : undefined}
+                    masked={pds && hideTokens}
+                  />
+                </div>
 
                 {pds && (
                   <>
@@ -690,7 +708,7 @@ export default function TokenPage() {
                       <Col span={12}>
                         <div className="field">
                           <label className="field-label">{t('pds.userCode')}</label>
-                          <CopyableField value={pdsUserCode} placeholder="—" rows={1} />
+                          <CopyableField value={pdsUserCode} placeholder="—" rows={1} size="large" />
                         </div>
                       </Col>
                     </Row>
@@ -699,7 +717,7 @@ export default function TokenPage() {
                       <Col span={12}>
                         <div className="field">
                           <label className="field-label">{t('pds.status')}</label>
-                          <CopyableField value={pdsStatus} placeholder={t('pds.statusPlaceholder')} rows={1} />
+                          <CopyableField value={pdsStatus} placeholder={t('pds.statusPlaceholder')} rows={1} size="large" />
                         </div>
                       </Col>
                       <Col span={12}>
@@ -789,7 +807,7 @@ export default function TokenPage() {
 
                     <div className="field">
                       <label className="field-label">{t('pds.configOutput')}</label>
-                      <CopyableField value={pdsConfig} placeholder={t('credential.empty')} rows={8} />
+                      <CopyableField value={pdsConfig} placeholder={t('credential.empty')} rows={4} size="large" />
                     </div>
                   </>
                 )}
