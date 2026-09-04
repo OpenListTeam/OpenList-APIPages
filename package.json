@@ -7,9 +7,11 @@
     "dev-cf": "wrangler dev",
     "deploy-cf": "wrangler deploy --minify",
     "dev-eo": "edgeone pages dev",
-    "build-eo": "edgeone pages build",
+    "build-eo": "npm run build-web && edgeone pages build",
     "deploy-eo": "edgeone pages deploy ./ -n edgeone-hono-app -t ",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "build-web": "cd frontend && npm install --include=dev --no-audit --no-fund && npm run build",
+    "dev-web": "cd frontend && npm run dev"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20250610.0",

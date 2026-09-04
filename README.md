@@ -204,6 +204,34 @@ npm run deploy-eo
 npm build-js && npm deploy-js
 ```
 
+## 前端（React + Ant Design）
+
+前端已重构为基于 **React 18 + TypeScript + Vite + Ant Design 5** 的单页应用，源码位于 `frontend/` 目录，构建产物输出到部署目录 `public/`。
+
+特性：
+- 多语言国际化（i18n）：默认跟随浏览器语言，支持简体中文 / 英文 / 繁体中文 / 日语 / 韩语
+- 暗黑 / 白天主题：默认跟随浏览器主题，支持手动切换并记忆
+- 现代化科技感 UI：玻璃拟态卡片、渐变网格背景、流畅动效
+
+### 本地开发
+
+```shell
+# 1. 安装前端依赖并启动开发服务器（默认 5173 端口，已配置 API 代理到 3000）
+npm run dev-web
+
+# 2. 另开终端启动后端（Node 环境）
+npm run dev-js
+```
+
+### 构建前端
+
+```shell
+# 构建产物直接输出到 public/ 目录
+npm run build-web
+```
+
+> 说明：`build-eo` 已自动包含前端构建步骤（`build-web`）。使用 Cloudflare Worker 部署前请先执行 `npm run build-web`，静态资源通过 `wrangler.jsonc` 的 `site.bucket = "./public"` 上传。
+
 ## 接口文档
 
 ### 登录接口
