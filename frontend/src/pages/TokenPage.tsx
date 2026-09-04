@@ -69,6 +69,7 @@ export default function TokenPage() {
   const [oobUrl, setOobUrl] = useState('')
 
   const consentShownRef = useRef(false)
+  const callbackFlagRef = useRef(false)
 
   // PDS 状态
   const [pdsDeviceName, setPdsDeviceName] = useState(PDS_DEFAULT_DEVICE_NAME)
@@ -170,18 +171,19 @@ export default function TokenPage() {
     const hash = window.location.hash.substring(1)
     const data = parseCallbackHash(hash)
     if (data) {
+      callbackFlagRef.current = true
       applyCallbackData(data)
       window.location.replace('#')
     }
   }, [applyCallbackData])
 
-  // Google 授权弹窗触发条件
+  // Google 授权弹窗触发条件：选择 Google Drive 驱动时即弹出（不再要求勾选「使用官方参数」），回调返回时不弹
   useEffect(() => {
-    if (driver === 'googleui_go' && serverUse && !consentShownRef.current) {
+    if (driver === 'googleui_go' && !consentShownRef.current && !callbackFlagRef.current) {
       consentShownRef.current = true
       setConsentOpen(true)
     }
-  }, [driver, serverUse])
+  }, [driver])
 
   const buildPayload = useCallback(
     () => ({
