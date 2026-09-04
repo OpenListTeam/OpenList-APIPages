@@ -71,22 +71,6 @@ export function isServerUseForcedOn(driver: string): boolean {
   return driver === '123cloud_oa'
 }
 
-/** 这些驱动在登录成功后通过跳转回调返回令牌 */
-export function isRedirectDriver(driver: string): boolean {
-  const pre = driverPrefix(driver)
-  return (
-    driver === 'baiduyun_go' ||
-    driver === 'alicloud_go' ||
-    pre === 'onedrive' ||
-    pre === '115cloud' ||
-    pre === 'googleui' ||
-    pre === 'yandexui' ||
-    pre === 'dropboxs' ||
-    pre === 'quarkyun' ||
-    driver === '123cloud_oa'
-  )
-}
-
 /** 阿里云 PDS 设备授权登录 */
 export function isPds(driver: string): boolean {
   return driver === 'pds_go'
