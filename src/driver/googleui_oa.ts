@@ -100,22 +100,18 @@ export async function oneToken(c: Context) {
                     method: 'POST', body: paramsString,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded',},
                 });
-                console.log(`[googleui] token 请求 server_url=${server_url} status=${response.status} 剩余重试=${try_time - 1}`);
                 if (response.status === 200) break;
-                // 非 200：读取响应体用于日志并继续重试（例如 Cloudflare 522 等代理/网络错误）
+                // 非 200：读取响应体并继续重试（例如 Cloudflare 522 等代理/网络错误）
                 last_status = response.status;
                 last_err = await response.text();
-                console.log(`[googleui] token 响应异常 status=${response.status} body=${last_err.slice(0, 300)}`);
                 try_time -= 1;
             } catch (error) {
-                console.log(`[googleui] token fetch 异常 error=${error} 剩余重试=${try_time - 1}`);
                 last_status = 0;
                 last_err = String(error);
                 try_time -= 1;
             }
         }
         if (!response || response.status !== 200) {
-            console.log(`[googleui] token 多次尝试后仍失败 status=${last_status} last_err=${last_err.slice(0, 200)}`);
             // 网络/代理层错误（fetch 失败或 5xx，如 Cloudflare 522）与授权配置错误（4xx）区分提示
             if (last_status === 0 || last_status >= 500) {
                 return c.redirect(showNetErr(last_err || "多次尝试获取Token失败", client_uid, client_key));
@@ -135,7 +131,6 @@ export async function oneToken(c: Context) {
         try {
             json = JSON.parse(rawText);
         } catch (e) {
-            console.log(`[googleui] token 响应非 JSON status=${response.status} body=${rawText.slice(0, 300)}`);
             return c.redirect(showErr(`HTTP ${response.status}: ${rawText.slice(0, 200)}`, client_uid, client_key));
         }
         if (json.token_type == "Bearer") {
@@ -151,10 +146,8 @@ export async function oneToken(c: Context) {
         }
         // Google 错误响应通常形如 { error: "...", error_description: "..." }
         const errMsg = json.error_description || json.error || json.message || "未知错误";
-        console.log(`[googleui] token 授权失败 error=${errMsg}`);
         return c.redirect(showErr(errMsg, client_uid, client_key));
     } catch (error) {
-        console.log(`[googleui] token 处理异常 error=${error}`);
         return c.redirect(showErr(<string>error, client_uid, client_key));
     }
 }
