@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { App, Button, Card, Col, Divider, Input, Modal, Row, Select, Space, Switch, Typography } from 'antd'
-import { KeyOutlined, LoginOutlined, ReloadOutlined, ThunderboltOutlined } from '@ant-design/icons'
+import { EyeInvisibleOutlined, EyeOutlined, KeyOutlined, LoginOutlined, ReloadOutlined, ThunderboltOutlined } from '@ant-design/icons'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CopyableField from '../components/CopyableField'
@@ -81,6 +81,7 @@ export default function TokenPage() {
   const [pdsDriveId, setPdsDriveId] = useState('')
   const [pdsDrives, setPdsDrives] = useState<PdsDrive[]>([])
   const [pdsConfig, setPdsConfig] = useState('')
+  const [hideTokens, setHideTokens] = useState(false)
   const pdsPollTimerRef = useRef<number | null>(null)
   const pdsPollingRef = useRef(false)
   const pdsPollExpiresAtRef = useRef(0)
@@ -640,107 +641,6 @@ export default function TokenPage() {
                   </Space>
                 </div>
 
-                {pds && (
-                  <>
-                    <Divider />
-                    <div className="card-heading">
-                      <Typography.Title level={5} className="card-heading__title">
-                        {t('pds.title')}
-                      </Typography.Title>
-                    </div>
-
-                    <div className="field">
-                      <label className="field-label">{t('pds.deviceName')}</label>
-                      <Input
-                        value={pdsDeviceName}
-                        onChange={(e) => setPdsDeviceName(e.target.value)}
-                        className="mono-input"
-                        size="large"
-                      />
-                    </div>
-
-                    <div className="field">
-                      <label className="field-label">{t('pds.userCode')}</label>
-                      <CopyableField value={pdsUserCode} placeholder="—" rows={1} />
-                    </div>
-
-                    <div className="field">
-                      <Button block size="large" disabled={!pdsAuthUrl} onClick={openPdsAuthUrl}>
-                        {t('pds.openAuth')}
-                      </Button>
-                    </div>
-
-                    <div className="field">
-                      <label className="field-label">{t('pds.status')}</label>
-                      <CopyableField value={pdsStatus} placeholder={t('pds.statusPlaceholder')} rows={1} />
-                    </div>
-
-                    <div className="field">
-                      <label className="field-label">{t('pds.tokenType')}</label>
-                      <Input
-                        value={pdsTokenType}
-                        onChange={(e) => setPdsTokenType(e.target.value)}
-                        className="mono-input"
-                        size="large"
-                      />
-                    </div>
-
-                    <div className="field">
-                      <Button block size="large" onClick={loadPdsDrives}>
-                        {t('pds.listDrives')}
-                      </Button>
-                    </div>
-
-                    <div className="field">
-                      <label className="field-label">{t('pds.drive')}</label>
-                      <Select
-                        value={pdsDriveId || undefined}
-                        onChange={(v) => setPdsDriveId(v ?? '')}
-                        options={pdsDrives.map((d) => ({
-                          value: d.drive_id,
-                          label: `${d.drive_name || d.drive_id}${d.owner_type ? ` / ${d.owner_type}` : ''}${
-                            d.total_size ? ` / ${formatPdsSize(d.used_size)} / ${formatPdsSize(d.total_size)}` : ''
-                          }`,
-                        }))}
-                        size="large"
-                        className="driver-select"
-                        allowClear
-                        placeholder={t('pds.drivePlaceholder')}
-                      />
-                    </div>
-
-                    <div className="field">
-                      <label className="field-label">{t('pds.driveId')}</label>
-                      <Input
-                        value={pdsDriveId}
-                        onChange={(e) => setPdsDriveId(e.target.value)}
-                        className="mono-input"
-                        size="large"
-                      />
-                    </div>
-
-                    <div className="field">
-                      <label className="field-label">{t('pds.rootFolderId')}</label>
-                      <Input
-                        value={pdsRootFolderId}
-                        onChange={(e) => setPdsRootFolderId(e.target.value)}
-                        className="mono-input"
-                        size="large"
-                      />
-                    </div>
-
-                    <div className="field">
-                      <Button block size="large" onClick={buildPdsConfig}>
-                        {t('pds.generateConfig')}
-                      </Button>
-                    </div>
-
-                    <div className="field">
-                      <label className="field-label">{t('pds.configOutput')}</label>
-                      <CopyableField value={pdsConfig} placeholder={t('credential.empty')} rows={12} />
-                    </div>
-                  </>
-                )}
               </Card>
             </Col>
 
@@ -751,17 +651,167 @@ export default function TokenPage() {
                   <Typography.Title level={4} className="card-heading__title">
                     {t('credential.tokenTitle')}
                   </Typography.Title>
+                  {pds && (
+                    <Button
+                      type="text"
+                      size="small"
+                      icon={hideTokens ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+                      onClick={() => setHideTokens((v) => !v)}
+                      title={hideTokens ? t('credential.showTokens') : t('credential.hideTokens')}
+                      style={{ marginLeft: 'auto' }}
+                    />
+                  )}
                 </div>
 
                 <div className="field">
                   <label className="field-label">{t('credential.accessToken')}</label>
-                  <CopyableField value={accessToken} placeholder={t('credential.empty')} readOnly={!pds} onChange={pds ? setAccessToken : undefined} />
+                  <CopyableField
+                    value={accessToken}
+                    placeholder={t('credential.empty')}
+                    readOnly={!pds}
+                    onChange={pds ? setAccessToken : undefined}
+                    masked={pds && hideTokens}
+                  />
                 </div>
 
                 <div className="field">
                   <label className="field-label">{t('credential.refreshTokenLabel')}</label>
-                  <CopyableField value={refreshToken} placeholder={t('credential.empty')} readOnly={!pds} onChange={pds ? setRefreshToken : undefined} />
+                  <CopyableField
+                    value={refreshToken}
+                    placeholder={t('credential.empty')}
+                    readOnly={!pds}
+                    onChange={pds ? setRefreshToken : undefined}
+                    masked={pds && hideTokens}
+                  />
                 </div>
+
+                {pds && (
+                  <>
+                    <Divider />
+                    <div className="card-heading">
+                      <Typography.Title level={5} className="card-heading__title">
+                        {t('pds.title')}
+                      </Typography.Title>
+                    </div>
+
+                    <Row gutter={12}>
+                      <Col span={12}>
+                        <div className="field">
+                          <label className="field-label">{t('pds.deviceName')}</label>
+                          <Input
+                            value={pdsDeviceName}
+                            onChange={(e) => setPdsDeviceName(e.target.value)}
+                            className="mono-input"
+                            size="large"
+                          />
+                        </div>
+                      </Col>
+                      <Col span={12}>
+                        <div className="field">
+                          <label className="field-label">{t('pds.userCode')}</label>
+                          <CopyableField value={pdsUserCode} placeholder="—" rows={1} />
+                        </div>
+                      </Col>
+                    </Row>
+
+                    <Row gutter={12}>
+                      <Col span={12}>
+                        <div className="field">
+                          <label className="field-label">{t('pds.status')}</label>
+                          <CopyableField value={pdsStatus} placeholder={t('pds.statusPlaceholder')} rows={1} />
+                        </div>
+                      </Col>
+                      <Col span={12}>
+                        <div className="field">
+                          <label className="field-label">{t('pds.tokenType')}</label>
+                          <Input
+                            value={pdsTokenType}
+                            onChange={(e) => setPdsTokenType(e.target.value)}
+                            className="mono-input"
+                            size="large"
+                          />
+                        </div>
+                      </Col>
+                    </Row>
+
+                    <Row gutter={12}>
+                      <Col span={12}>
+                        <div className="field">
+                          <Button block size="large" disabled={!pdsAuthUrl} onClick={openPdsAuthUrl}>
+                            {t('pds.openAuth')}
+                          </Button>
+                        </div>
+                      </Col>
+                      <Col span={12}>
+                        <div className="field">
+                          <Button block size="large" onClick={loadPdsDrives}>
+                            {t('pds.listDrives')}
+                          </Button>
+                        </div>
+                      </Col>
+                    </Row>
+
+                    <Row gutter={12}>
+                      <Col span={12}>
+                        <div className="field">
+                          <label className="field-label">{t('pds.drive')}</label>
+                          <Select
+                            value={pdsDriveId || undefined}
+                            onChange={(v) => setPdsDriveId(v ?? '')}
+                            options={pdsDrives.map((d) => ({
+                              value: d.drive_id,
+                              label: `${d.drive_name || d.drive_id}${d.owner_type ? ` / ${d.owner_type}` : ''}${
+                                d.total_size ? ` / ${formatPdsSize(d.used_size)} / ${formatPdsSize(d.total_size)}` : ''
+                              }`,
+                            }))}
+                            size="large"
+                            style={{ width: '100%' }}
+                            allowClear
+                            placeholder={t('pds.drivePlaceholder')}
+                          />
+                        </div>
+                      </Col>
+                      <Col span={12}>
+                        <div className="field">
+                          <label className="field-label">{t('pds.driveId')}</label>
+                          <Input
+                            value={pdsDriveId}
+                            onChange={(e) => setPdsDriveId(e.target.value)}
+                            className="mono-input"
+                            size="large"
+                          />
+                        </div>
+                      </Col>
+                    </Row>
+
+                    <Row gutter={12}>
+                      <Col span={12}>
+                        <div className="field">
+                          <label className="field-label">{t('pds.rootFolderId')}</label>
+                          <Input
+                            value={pdsRootFolderId}
+                            onChange={(e) => setPdsRootFolderId(e.target.value)}
+                            className="mono-input"
+                            size="large"
+                          />
+                        </div>
+                      </Col>
+                      <Col span={12}>
+                        <div className="field">
+                          <label className="field-label">&nbsp;</label>
+                          <Button block size="large" onClick={buildPdsConfig}>
+                            {t('pds.generateConfig')}
+                          </Button>
+                        </div>
+                      </Col>
+                    </Row>
+
+                    <div className="field">
+                      <label className="field-label">{t('pds.configOutput')}</label>
+                      <CopyableField value={pdsConfig} placeholder={t('credential.empty')} rows={8} />
+                    </div>
+                  </>
+                )}
 
                 {onedrive && (
                   <>

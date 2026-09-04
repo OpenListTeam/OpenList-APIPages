@@ -69,6 +69,8 @@ export default {
     refreshTokenLabel: 'Refresh Token',
     tokenHint: 'Click content to copy',
     empty: 'No content',
+    hideTokens: 'Hide tokens',
+    showTokens: 'Show tokens',
   },
   pds: {
     title: 'Aliyun PDS Device Authorization',

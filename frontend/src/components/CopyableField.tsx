@@ -11,12 +11,16 @@ interface Props {
   readOnly?: boolean
   onChange?: (value: string) => void
   mono?: boolean
+  masked?: boolean
 }
 
-export default function CopyableField({ value, placeholder, rows = 3, readOnly = true, onChange, mono = true }: Props) {
+export default function CopyableField({ value, placeholder, rows = 3, readOnly = true, onChange, mono = true, masked = false }: Props) {
   const { t } = useTranslation()
   const { message } = App.useApp()
   const [hovered, setHovered] = useState(false)
+
+  const effectiveReadOnly = readOnly || masked
+  const displayValue = masked && value ? '•'.repeat(20) : value
 
   const handleCopy = async () => {
     if (!value) return
@@ -28,15 +32,15 @@ export default function CopyableField({ value, placeholder, rows = 3, readOnly =
   return (
     <div className="copyable-field" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       <Input.TextArea
-        value={value}
+        value={displayValue}
         placeholder={placeholder}
-        autoSize={readOnly ? { minRows: rows, maxRows: rows } : { minRows: rows, maxRows: 8 }}
-        readOnly={readOnly}
+        autoSize={effectiveReadOnly ? { minRows: rows, maxRows: rows } : { minRows: rows, maxRows: 8 }}
+        readOnly={effectiveReadOnly}
         onChange={(e) => onChange?.(e.target.value)}
-        onClick={readOnly ? handleCopy : undefined}
+        onClick={effectiveReadOnly ? handleCopy : undefined}
         className={mono ? 'mono-input' : ''}
       />
-      {readOnly && hovered && value && (
+      {effectiveReadOnly && hovered && value && (
         <Tooltip title={t('msg.copied')}>
           <span className="copyable-field__badge">
             <CopyOutlined />
