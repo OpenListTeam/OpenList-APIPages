@@ -30,6 +30,9 @@
     "cloud123_key": "*****************************",
     "cloud123_url": "*****************************"
   },
+  "build": {
+    "command": "npm run build-web"
+  },
   "site": {
     "bucket": "./public"
   }

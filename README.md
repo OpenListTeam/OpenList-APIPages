@@ -230,7 +230,10 @@ npm run dev-js
 npm run build-web
 ```
 
-> 说明：`build-eo` 已自动包含前端构建步骤（`build-web`）。使用 Cloudflare Worker 部署前请先执行 `npm run build-web`，静态资源通过 `wrangler.jsonc` 的 `site.bucket = "./public"` 上传。
+> 说明：前端构建产物输出到 `public/` 目录，该目录已加入 `.gitignore`，无需提交到仓库。所有部署方式都会在部署时自动构建前端：
+> - **EdgeOne**：`npm run build-eo` 已内置 `build-web` 构建步骤。
+> - **Cloudflare Worker**：`wrangler.jsonc` 配置了 `build.command = "npm run build-web"`，`wrangler deploy` 前会自动构建。
+> - **Docker**：`Dockerfile` / `Dockerfile-Lite` 在镜像构建阶段执行 `npm run build-web` 生成静态资源。
 
 ## 接口文档
 
