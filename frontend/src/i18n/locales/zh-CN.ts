@@ -69,8 +69,6 @@ export default {
     refreshTokenLabel: '刷新令牌（Refresh Token）',
     tokenHint: '点击内容即可复制',
     empty: '暂无内容',
-    hideTokens: '隐藏令牌',
-    showTokens: '显示令牌',
   },
   pds: {
     title: '阿里云 PDS 设备授权',
