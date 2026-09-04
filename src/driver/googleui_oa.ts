@@ -1,6 +1,6 @@
 import * as local from "hono/cookie";
 import {Context} from "hono";
-import {showErr} from "../shares/message";
+import {showErr, showNetErr} from "../shares/message";
 import * as configs from "../shares/configs";
 import * as refresh from "../shares/refresh";
 import {encodeCallbackData, Secrets} from "../shares/secrets";
@@ -93,6 +93,7 @@ export async function oneToken(c: Context) {
         let try_time: number = 5;
         let response: Response | null = null;
         let last_err: string = "";
+        let last_status: number = 0;
         while (try_time > 0) {
             try {
                 response = await fetch(server_url, {
@@ -102,17 +103,23 @@ export async function oneToken(c: Context) {
                 console.log(`[googleui] token 请求 server_url=${server_url} status=${response.status} 剩余重试=${try_time - 1}`);
                 if (response.status === 200) break;
                 // 非 200：读取响应体用于日志并继续重试（例如 Cloudflare 522 等代理/网络错误）
+                last_status = response.status;
                 last_err = await response.text();
                 console.log(`[googleui] token 响应异常 status=${response.status} body=${last_err.slice(0, 300)}`);
                 try_time -= 1;
             } catch (error) {
                 console.log(`[googleui] token fetch 异常 error=${error} 剩余重试=${try_time - 1}`);
+                last_status = 0;
                 last_err = String(error);
                 try_time -= 1;
             }
         }
         if (!response || response.status !== 200) {
-            console.log(`[googleui] token 多次尝试后仍失败 last_err=${last_err.slice(0, 200)}`);
+            console.log(`[googleui] token 多次尝试后仍失败 status=${last_status} last_err=${last_err.slice(0, 200)}`);
+            // 网络/代理层错误（fetch 失败或 5xx，如 Cloudflare 522）与授权配置错误（4xx）区分提示
+            if (last_status === 0 || last_status >= 500) {
+                return c.redirect(showNetErr(last_err || "多次尝试获取Token失败", client_uid, client_key));
+            }
             return c.redirect(showErr(last_err || "多次尝试获取Token失败", client_uid, client_key));
         }
         if (server_use == "false") {
