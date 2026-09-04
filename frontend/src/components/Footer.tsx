@@ -8,24 +8,6 @@ export default function Footer() {
 
   return (
     <footer className="app-footer">
-      <div className="app-footer__nav">
-        <a href="https://docs.oplist.org/privacy" target="_blank" rel="noreferrer">
-          {t('consent.privacy')}
-        </a>
-        <span className="app-footer__dot">·</span>
-        <a href="https://docs.oplist.org/terms" target="_blank" rel="noreferrer">
-          {t('consent.terms')}
-        </a>
-        <span className="app-footer__dot">·</span>
-        <a href="https://github.com/OpenListTeam/OpenList-OnlineAPI" target="_blank" rel="noreferrer">
-          {t('footer.opensource')}
-        </a>
-      </div>
-
-      <Typography.Text type="secondary" className="app-footer__note">
-        {t('footer.privacyNote')}
-      </Typography.Text>
-
       <Typography.Text type="secondary" className="app-footer__links">
         {t('footer.opensource')}{' '}
         <a href="https://github.com/OpenListTeam/OpenList-OnlineAPI" target="_blank" rel="noreferrer">
@@ -35,6 +17,20 @@ export default function Footer() {
         <a href="https://github.com/OpenListTeam" target="_blank" rel="noreferrer">
           OpenListTeam
         </a>
+      </Typography.Text>
+
+      <div className="app-footer__nav">
+        <a href="https://docs.oplist.org/privacy" target="_blank" rel="noreferrer">
+          {t('consent.privacy')}
+        </a>
+        <span className="app-footer__dot">·</span>
+        <a href="https://docs.oplist.org/terms" target="_blank" rel="noreferrer">
+          {t('consent.terms')}
+        </a>
+      </div>
+
+      <Typography.Text type="secondary" className="app-footer__note">
+        {t('footer.privacyNote')}
       </Typography.Text>
 
       {isCn && (

@@ -172,6 +172,7 @@ body {
   border: 1px solid var(--card-border);
   background: var(--card-bg);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   margin-bottom: 20px;
 }
 
@@ -466,9 +467,11 @@ body {
 /* Cookie 告知横幅 */
 .cookie-banner {
   position: fixed;
-  left: 50%;
+  left: 0;
+  right: 0;
   bottom: 24px;
-  transform: translateX(-50%);
+  margin-left: auto;
+  margin-right: auto;
   width: min(94vw, 680px);
   z-index: 1200;
   display: flex;
@@ -478,6 +481,7 @@ body {
   border-radius: 18px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
