@@ -179,5 +179,5 @@ export async function genToken(c: Context) {
         grant_type: 'refresh_token',
         refresh_token: refresh_text
     };
-    return await refresh.pubRenew(c, server_url, params, "POST", "access_token", "copy", "none");
+    return await refresh.pubRenew(c, server_url, params, "POST", "access_token", "copy", "none", "json", undefined, true);
 }
