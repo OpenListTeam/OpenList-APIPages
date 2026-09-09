@@ -52,5 +52,5 @@ export async function apiRenew(c: Context) {
         grant_type: 'refresh_token',
         refresh_token: refresh_text,
     };
-    return await pubRenew(c, driver_map[1], params_info, "POST", "access_token", "copy", "error_description", "json", undefined, true);
+    return await pubRenew(c, driver_map[1], params_info, "POST", "access_token", "copy");
 }
