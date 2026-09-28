@@ -17,7 +17,7 @@ export async function oneLogin(c: Context) {
     const secret_key: string = <string>c.req.query('secret_key');
     const driver_txt: string = <string>c.req.query('driver_txt');
     const server_use: string = <string>c.req.query('server_use');
-    const redirector: string = 'https://' + c.env.MAIN_URLS + '/baiduyun/callback'
+    const redirector: string = 'https://' + configs.getBaseHost(c) + '/baiduyun/callback'
     if (server_use == "false")
         if (!driver_txt || !client_key || !secret_key)
             return c.json({text: "参数缺少"}, 500);
@@ -53,7 +53,7 @@ export async function oneLogin(c: Context) {
 export async function oneToken(c: Context) {
     let login_data, client_key, secret_key, client_url, server_oob;
     let driver_txt, server_use, params_all: Record<string, any>;
-    const redirector: string = 'https://' + c.env.MAIN_URLS + '/baiduyun/callback'
+    const redirector: string = 'https://' + configs.getBaseHost(c) + '/baiduyun/callback'
     try { // 请求参数 ====================================================================
         server_oob = c.req.query('server_oob');
         login_data = c.req.query('code');

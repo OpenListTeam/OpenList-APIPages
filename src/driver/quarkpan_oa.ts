@@ -21,7 +21,7 @@ export async function getLogin(c: Context) {
     const params_all = {
         authType: 4,
         grantType: "authorization_code",
-        redirectUrlToFrontend: 'https://' + c.env.MAIN_URLS + '/quarkyun/callback',
+        redirectUrlToFrontend: 'https://' + configs.getBaseHost(c) + '/quarkyun/callback',
         trimAppId: "com.trim.cloudstorage"
     };
     setCookie(c, clients)

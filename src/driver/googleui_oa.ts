@@ -22,7 +22,7 @@ export async function oneLogin(c: Context) {
     // 请求参数 ==========================================================================
     const params_all: Record<string, any> = {
         'client_id': server_use == "true" ? c.env.googleui_uid : client_uid,
-        'redirect_uri': 'https://' + c.env.MAIN_URLS + '/googleui/callback',
+        'redirect_uri': 'https://' + configs.getBaseHost(c) + '/googleui/callback',
         'scope': "https://www.googleapis.com/auth/drive",
         'response_type': 'code',
         'state': random_key,
@@ -75,7 +75,7 @@ export async function oneToken(c: Context) {
             'client_secret': server_use == "true" ? c.env.googleui_key : client_key,
             'code': login_data,
             'grant_type': 'authorization_code',
-            'redirect_uri': 'https://' + c.env.MAIN_URLS + '/googleui/callback',
+            'redirect_uri': 'https://' + configs.getBaseHost(c) + '/googleui/callback',
         };
     } catch (error) {
         return c.redirect(showErr(<string>error, "", ""));

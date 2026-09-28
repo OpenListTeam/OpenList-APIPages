@@ -25,3 +25,14 @@ export function getInfo(c: Context): Clients | undefined {
         servers: !server_use ? false : server_use == "true"
     };
 }
+export function getBaseHost(c: Context): string {
+    const custom = (c.env?.MAIN_URLS || "").trim();
+    if (custom && custom !== "api.example.com") {
+        return custom;
+    }
+    try {
+        const u = new URL(c.req.url);
+        if (u.host) return u.host;
+    } catch {}
+    return c.req.header("host") || "api.example.com";
+}
