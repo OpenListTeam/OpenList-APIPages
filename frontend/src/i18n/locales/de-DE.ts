@@ -8,6 +8,10 @@ export default {
     intro: 'Holen Sie den Autorisierungscode von der neu geöffneten Seite und fügen Sie ihn unten ein:',
     codeLabel: 'Autorisierungscode',
   },
+  security: {
+    title: 'Prüfen Sie vor der Autorisierung die Domain der Website',
+    description: 'Geben Sie App-Geheimnisse und Cloud-Speicher-Tokens nur auf der offiziellen Website oder einer vertrauenswürdigen selbst gehosteten Website ein und erteilen Sie nur dort Zugriff. Gefälschte Seiten können diese Informationen stehlen. Teilen Sie keine Rückruflinks mit Tokens. Die automatische Erkennung der Rückrufdomain bestätigt nicht die Vertrauenswürdigkeit der Website.',
+  },
   app: {
     title: 'OpenList Token',
     subtitle: 'Cloud-Drive-API-Token sicher abrufen',

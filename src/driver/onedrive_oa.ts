@@ -39,7 +39,7 @@ export async function oneLogin(c: Context) {
             return c.json({text: "参数缺少"}, 500);
     const scopes_all = 'offline_access Files.ReadWrite.All';
     const client_url: string = driver_map[driver_txt][0];
-    const redirector: string = 'https://' + c.env.MAIN_URLS + '/onedrive/callback'
+    const redirector: string = 'https://' + configs.getBaseHost(c) + '/onedrive/callback'
     // 请求参数 ==========================================================================
     const params_all: Record<string, any> = {
         client_id: server_use == "true" ? c.env.onedrive_uid : client_uid,
@@ -84,7 +84,7 @@ export async function oneToken(c: Context) {
         params_all = {
             client_id: server_use == "true" ? c.env.onedrive_uid : client_uid,
             client_secret: server_use == "true" ? c.env.onedrive_key : client_key,
-            redirect_uri: 'https://' + c.env.MAIN_URLS + '/onedrive/callback',
+            redirect_uri: 'https://' + configs.getBaseHost(c) + '/onedrive/callback',
             code: login_data,
             grant_type: 'authorization_code'
         };
@@ -181,7 +181,7 @@ export async function genToken(c: Context) {
     const params: Record<string, any> = {
         client_id: clients_info.servers ? c.env.onedrive_uid : clients_info.app_uid,
         client_secret: clients_info.servers ? c.env.onedrive_key : clients_info.app_key,
-        redirect_uri: 'https://' + c.env.MAIN_URLS + '/onedrive/callback',
+        redirect_uri: 'https://' + configs.getBaseHost(c) + '/onedrive/callback',
         grant_type: "refresh_token",
         refresh_token: refresh_text
     };

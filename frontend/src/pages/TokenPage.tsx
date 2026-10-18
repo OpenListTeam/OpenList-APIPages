@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { App, Button, Card, Col, Divider, Input, Modal, Row, Select, Space, Switch, Typography } from 'antd'
+import { Alert, App, Button, Card, Col, Divider, Input, Modal, Row, Select, Space, Switch, Typography } from 'antd'
 import { EyeInvisibleOutlined, EyeOutlined, KeyOutlined, LoginOutlined, ReloadOutlined, ThunderboltOutlined } from '@ant-design/icons'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -525,6 +525,13 @@ export default function TokenPage() {
         </section>
 
         <section className="workspace">
+          <Alert
+            type="warning"
+            showIcon
+            message={t('security.title')}
+            description={t('security.description')}
+            style={{ marginBottom: 20 }}
+          />
           <Row gutter={[20, 20]}>
             <Col xs={24} lg={14}>
               <Card className="glass-card config-card" variant="borderless">

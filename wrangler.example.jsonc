@@ -7,6 +7,8 @@
     "nodejs_compat"
   ],
   "vars": {
+    // 公开服务建议填写正式回调域名；空值或默认占位符时自动推导，但不代表站点可信。
+    // 仅在可信页面输入密钥/令牌，CORS 不能保护 URL 回调。详见 README 安全提醒。
     "MAIN_URLS": "api.example.com",
     "PROXY_API": "",
     "onedrive_uid": "*****************************",

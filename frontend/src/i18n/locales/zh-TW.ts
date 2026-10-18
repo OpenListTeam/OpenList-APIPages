@@ -8,6 +8,10 @@ export default {
     intro: '請在新開啟的頁面取得授權碼並貼到下方：',
     codeLabel: '授權碼',
   },
+  security: {
+    title: '授權前請核對存取網域',
+    description: '僅在官方或您信任的自架站點輸入應用程式密鑰與網路硬碟權杖，並進行授權。仿冒頁面可能竊取這些資訊；請勿分享含權杖的回呼連結。自動辨識回呼網域不代表站點已通過可信驗證。',
+  },
   app: {
     title: 'OpenList Token',
     subtitle: '安全取得網盤 API 存取權杖',

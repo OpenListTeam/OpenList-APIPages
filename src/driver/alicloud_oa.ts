@@ -47,7 +47,7 @@ export async function alyLogin(c: Context) {
     }
     // QR扫码需要增加的参数 =============================================================
     if (clients.drivers == "alicloud_go") {
-        params_info.redirect_uri = 'https://' + c.env.MAIN_URLS + '/alicloud/callback'
+        params_info.redirect_uri = 'https://' + configs.getBaseHost(c) + '/alicloud/callback'
         params_info.response_type = 'code'
         params_info.scope = ['user:base', 'file:all:read', 'file:all:write']
     } else {

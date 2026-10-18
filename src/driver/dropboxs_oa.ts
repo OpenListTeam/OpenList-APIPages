@@ -18,7 +18,7 @@ export async function getLogin(c: Context) {
         client_id: clients_info.servers ? c.env.dropboxs_uid : clients_info.app_uid,
         response_type: 'code',
         token_access_type: "offline",
-        redirect_uri: 'https://' + c.env.MAIN_URLS + '/dropboxs/callback',
+        redirect_uri: 'https://' + configs.getBaseHost(c) + '/dropboxs/callback',
     };
     setCookie(c, clients_info)
     return await pubLogin(c, params_info, driver_map[0], true);
@@ -35,7 +35,7 @@ export async function urlParse(c: Context) {
         client_secret: clients_info.servers ? c.env.dropboxs_key : clients_info.app_key,
         grant_type: 'authorization_code',
         code: login_data,
-        redirect_uri: 'https://' + c.env.MAIN_URLS + '/dropboxs/callback',
+        redirect_uri: 'https://' + configs.getBaseHost(c) + '/dropboxs/callback',
     };
     return await pubParse(c, clients_info, params_info, driver_map[1], "POST");
 }
