@@ -200,7 +200,7 @@ npm run build-js && npm run deploy-js
 
 ## 前端（React + Ant Design）
 
-前端已重构为基于 **React 18 + TypeScript + Vite + Ant Design 5** 的单页应用，源码位于 `frontend/` 目录，构建产物输出到部署目录 `public/`。
+前端已重构为基于 **React 18 + TypeScript + Vite + Ant Design 5** 的单页应用，开发与目录导航见 [frontend/README.md](frontend/README.md)，构建产物输出到部署目录 `public/`。
 
 ### 特性
 
