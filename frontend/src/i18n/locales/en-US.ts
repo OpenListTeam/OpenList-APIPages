@@ -8,6 +8,10 @@ export default {
     intro: 'Get the authorization code from the newly opened page and paste it below:',
     codeLabel: 'Authorization Code',
   },
+  security: {
+    title: 'Check the site domain before authorizing',
+    description: 'Only enter application secrets and cloud-drive tokens, or grant access, on the official site or a self-hosted site you trust. A fake page may steal this information. Do not share callback links containing tokens. Automatic callback-domain detection does not verify that a site is trustworthy.',
+  },
   app: {
     title: 'OpenList Token',
     subtitle: 'Securely obtain cloud drive API tokens',

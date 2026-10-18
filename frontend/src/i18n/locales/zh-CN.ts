@@ -8,6 +8,10 @@ export default {
     intro: '请在新打开的页面获取授权码并粘贴到下方：',
     codeLabel: '授权码',
   },
+  security: {
+    title: '授权前请核对访问域名',
+    description: '仅在官方或您信任的自建站点输入应用密钥和网盘令牌，并进行授权。仿冒页面可能窃取这些信息；不要分享含令牌的回调链接。自动识别回调域名不代表站点已经过可信验证。',
+  },
   app: {
     title: 'OpenList Token',
     subtitle: '安全获取网盘 API 访问令牌',

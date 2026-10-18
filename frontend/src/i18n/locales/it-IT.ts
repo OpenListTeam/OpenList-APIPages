@@ -8,6 +8,10 @@ export default {
     intro: 'Ottieni il codice di autorizzazione dalla pagina appena aperta e incollalo qui sotto:',
     codeLabel: 'Codice di autorizzazione',
   },
+  security: {
+    title: 'Controlla il dominio del sito prima di autorizzare',
+    description: 'Inserisci segreti delle applicazioni e token di archiviazione cloud, o concedi accesso, solo sul sito ufficiale o su un sito self-hosted attendibile. Una pagina falsa può rubare queste informazioni. Non condividere link di callback contenenti token. Il rilevamento automatico del dominio di callback non verifica che il sito sia affidabile.',
+  },
   app: {
     title: 'OpenList Token',
     subtitle: 'Ottieni in modo sicuro i token API dei cloud drive',

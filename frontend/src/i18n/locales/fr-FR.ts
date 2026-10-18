@@ -8,6 +8,10 @@ export default {
     intro: "Récupérez le code d'autorisation depuis la page nouvellement ouverte et collez-le ci-dessous :",
     codeLabel: "Code d'autorisation",
   },
+  security: {
+    title: 'Vérifiez le domaine du site avant de donner votre autorisation',
+    description: 'Saisissez les secrets de votre application et les jetons de votre espace cloud, et accordez un accès, uniquement sur le site officiel ou un site auto-hébergé de confiance. Une fausse page peut voler ces informations. Ne partagez pas les liens de retour contenant des jetons. La détection automatique du domaine de retour ne vérifie pas la fiabilité du site.',
+  },
   app: {
     title: 'OpenList Token',
     subtitle: 'Obtenez des jetons API de stockage cloud en toute sécurité',

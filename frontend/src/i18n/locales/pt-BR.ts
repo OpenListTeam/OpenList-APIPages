@@ -8,6 +8,10 @@ export default {
     intro: 'Obtenha o código de autorização na página recém-aberta e cole-o abaixo:',
     codeLabel: 'Código de autorização',
   },
+  security: {
+    title: 'Confira o domínio do site antes de autorizar',
+    description: 'Insira segredos de aplicativos e tokens de armazenamento em nuvem, ou conceda acesso, apenas no site oficial ou em um site auto-hospedado confiável. Uma página falsa pode roubar essas informações. Não compartilhe links de retorno que contenham tokens. A detecção automática do domínio de retorno não verifica se o site é confiável.',
+  },
   app: {
     title: 'OpenList Token',
     subtitle: 'Obtenha tokens de API de armazenamento na nuvem com segurança',

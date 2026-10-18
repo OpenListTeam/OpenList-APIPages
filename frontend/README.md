@@ -11,12 +11,14 @@
 | `package.json`、`package-lock.json` | 前端命令及锁定的依赖 |
 | `index.html`、`vite.config.ts`、`tsconfig.json` | HTML 入口、开发代理、构建与类型检查配置 |
 | `verify.mjs`、`verify-final.mjs` | 既有 Puppeteer 手工验证脚本，需要额外的浏览器与依赖 |
+| `verify-security-notice.mjs` | 使用现有 TypeScript 依赖检查所有已注册语言的风险提示，无需网盘凭据 |
 
 在本目录运行：
 
 ```sh
 npm ci
 npm run typecheck
+node verify-security-notice.mjs
 npm run dev
 npm run build
 ```
